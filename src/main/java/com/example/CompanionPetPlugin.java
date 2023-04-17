@@ -2,7 +2,6 @@ package com.example;
 
 import com.example.dialog.DialogNode;
 import com.example.dialog.FakeDialogManager;
-import com.google.common.collect.Lists;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
@@ -99,7 +98,7 @@ public class CompanionPetPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(overlayPet);
-		eventBus.register(fakeDialogManager);
+		eventBus.unregister(fakeDialogManager);
 		clientToolbar.removeNavigation(navButton);
 		hooks.unregisterRenderableDrawListener(drawListener);
 		panel.removeAll();
