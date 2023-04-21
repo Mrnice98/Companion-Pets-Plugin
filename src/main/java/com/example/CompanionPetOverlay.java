@@ -10,7 +10,7 @@ import net.runelite.client.ui.overlay.*;
 import javax.inject.Inject;
 import java.awt.*;
 
-public class PetOverlay extends Overlay {
+public class CompanionPetOverlay extends Overlay {
 
     private CompanionPetPlugin plugin;
 
@@ -19,7 +19,7 @@ public class PetOverlay extends Overlay {
     private CompanionPetConfig config;
 
     @Inject
-    public PetOverlay(CompanionPetPlugin plugin, Client client, CompanionPetConfig config) {
+    public CompanionPetOverlay(CompanionPetPlugin plugin, Client client, CompanionPetConfig config) {
         this.plugin = plugin;
         this.client = client;
         this.config = config;
@@ -54,11 +54,6 @@ public class PetOverlay extends Overlay {
 
             graphics.setFont(FontManager.getRunescapeBoldFont());
 
-//            if (plugin.wizard.getRlObject() != null && plugin.cutScene && plugin.wizard.isActive())
-//            {
-//                Point canvasPoint2 = Perspective.getCanvasTextLocation(client,graphics,plugin.wizard.getLocalLocation(),plugin.message,client.getLocalPlayer().getLogicalHeight());
-//                OverlayUtil.renderTextLocation(graphics,canvasPoint2,plugin.message,Color.YELLOW);
-//            }
 
         }
 
