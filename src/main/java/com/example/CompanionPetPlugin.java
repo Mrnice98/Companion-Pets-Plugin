@@ -40,8 +40,8 @@ import static net.runelite.api.Perspective.SINE;
 @Slf4j
 @PluginDescriptor(
 	name = "Companion Pet Plugin",
-	description = "Spawn any pet as a follower or thrall",
-	tags = {"pet","companion pet","fake","pvm","fake follower"}
+	description = "Spawn any pet as a Follower or to act as a Thrall.",
+	tags = {"pet","companion pet","fake","pvm","fake follower","Thrall"}
 )
 public class CompanionPetPlugin extends Plugin
 {
@@ -102,7 +102,9 @@ public class CompanionPetPlugin extends Plugin
 		clientToolbar.removeNavigation(navButton);
 		hooks.unregisterRenderableDrawListener(drawListener);
 		panel.removeAll();
-		activeThralls.clear();
+
+		clientThread.invokeLater(this::despawnAnyActivePOMs);
+
 
 	}
 
@@ -727,6 +729,21 @@ public class CompanionPetPlugin extends Plugin
 		}
 
 		return null;
+	}
+
+	private void despawnAnyActivePOMs()
+	{
+		if (pet.getRlObject() != null && pet.isActive())
+		{
+			pet.despawn();
+		}
+
+		for (PetObjectModel pom : activeThralls.values())
+		{
+			pom.despawn();
+		}
+
+		activeThralls.clear();
 	}
 
 	private WorldPoint getAndUpdatePlayersDelayedLoc()
