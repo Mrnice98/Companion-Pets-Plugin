@@ -2,6 +2,6 @@
 Allows you to spawn any pet in the game (including transmogs) which will follow you around and act nearly identical to the real thing or replace your thralls. 
 
 Features a SidePanel for selection with a favorites bar.  
-Right click swap a favorites slot on the side panel to replace with your current pet.  
+Right-click the pet buttons to swap with a Thrall or add to Favorites bar. 
 
-(Talk to the pets for fun easter eggs)
+(Talk to the pets for fun Easter eggs)
