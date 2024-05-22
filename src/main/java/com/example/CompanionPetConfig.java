@@ -3,9 +3,6 @@ package com.example;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-import java.util.List;
-import java.util.EnumSet;
-import java.util.Set;
 
 @ConfigGroup("CompanionPetPlugin")
 public interface CompanionPetConfig extends Config
@@ -136,6 +133,17 @@ public interface CompanionPetConfig extends Config
 			hidden = false
 	)
 	default boolean allowBrokenPets()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "forceRun",
+			name = "Force Run",
+			description = "Will make the pet run without a custom animation",
+			hidden = false
+	)
+	default boolean forceRun()
 	{
 		return false;
 	}
