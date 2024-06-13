@@ -74,23 +74,23 @@ public class PathingLogic {
             // When it needs to stop at melee distance, it will only attempt
             // to travel along the x axis when it is standing diagonally
             // from the target
-            if (start.canTravelInDirection(client, dxSig, 0, extraCondition))
+            if (start.canTravelInDirection(client.getTopLevelWorldView(), dxSig, 0, extraCondition))
             {
                 return new WorldArea(start.getX() + dxSig, start.getY(), start.getWidth(), start.getHeight(), start.getPlane());
             }
         }
         else
         {
-            if (start.canTravelInDirection(client, dxSig, dySig, extraCondition))
+            if (start.canTravelInDirection(client.getTopLevelWorldView(), dxSig, dySig, extraCondition))
             {
                 return new WorldArea(start.getX() + dxSig, start.getY() + dySig, start.getWidth(), start.getHeight(), start.getPlane());
             }
-            else if (dx != 0 && start.canTravelInDirection(client, dxSig, 0, extraCondition))
+            else if (dx != 0 && start.canTravelInDirection(client.getTopLevelWorldView(), dxSig, 0, extraCondition))
             {
                 return new WorldArea(start.getX() + dxSig, start.getY(), start.getWidth(), start.getHeight(), start.getPlane());
             }
             else if (dy != 0 && Math.max(Math.abs(dx), Math.abs(dy)) > 1 &&
-                    start.canTravelInDirection(client, 0, dy, extraCondition))
+                    start.canTravelInDirection(client.getTopLevelWorldView(), 0, dy, extraCondition))
             {
                 // Note that NPCs don't attempts to travel along the y-axis
                 // if the target is <= 1 tile distance away

@@ -804,7 +804,7 @@ public class CompanionPetPlugin extends Plugin
 		{
 			if (i != 0)
 			{
-				if (worldArea.canTravelInDirection(client,i,0))
+				if (worldArea.canTravelInDirection(client.getTopLevelWorldView(),i,0))
 				{
 
 					WorldPoint worldPoint = new WorldPoint(worldArea.getX() + i,worldArea.getY(),client.getPlane());
@@ -813,7 +813,7 @@ public class CompanionPetPlugin extends Plugin
 					if (petData.getSize() == 2)
 					{
 						WorldArea area = new WorldArea(worldPoint,2,2);
-						secondCheck = area.canTravelInDirection(client,i,0) ;
+						secondCheck = area.canTravelInDirection(client.getTopLevelWorldView(),i,0) ;
 					}
 
 
@@ -825,7 +825,7 @@ public class CompanionPetPlugin extends Plugin
 				}
 
 
-				if (worldArea.canTravelInDirection(client,0,i))
+				if (worldArea.canTravelInDirection(client.getTopLevelWorldView(),0,i))
 				{
 					WorldPoint worldPoint = new WorldPoint(worldArea.getX(),worldArea.getY() + i,client.getPlane());
 
@@ -833,7 +833,7 @@ public class CompanionPetPlugin extends Plugin
 					if (petData.getSize() == 2)
 					{
 						WorldArea area = new WorldArea(worldPoint,2,2);
-						secondCheck	= area.canTravelInDirection(client,0,i);
+						secondCheck	= area.canTravelInDirection(client.getTopLevelWorldView(),0,i);
 					}
 
 					if (!worldPoint.equals(client.getLocalPlayer().getWorldLocation()) && secondCheck)
@@ -1023,7 +1023,7 @@ public class CompanionPetPlugin extends Plugin
 		WorldPoint wp = client.getLocalPlayer().getWorldLocation();
 		WorldPoint aWP = pet.getWorldLocation();
 
-		boolean petHasLOS = wp.toWorldArea().hasLineOfSightTo(client,aWP);
+		boolean petHasLOS = wp.toWorldArea().hasLineOfSightTo(client.getTopLevelWorldView(),aWP);
 
 		if (event != null && wp.toWorldArea().distanceTo(aWP.toWorldArea()) < 6 && petHasLOS && pet.isActive())
 		{
