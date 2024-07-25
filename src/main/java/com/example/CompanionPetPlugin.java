@@ -326,7 +326,7 @@ public class CompanionPetPlugin extends Plugin
 			nextTravellingPoint = PathingLogic.calculateNextTravellingPoint(client,petWorldArea,worldArea,true, this::extraBlockageCheck);
 
 			//allow pets to run / need to update so it wont start walking when it gets close on arrival to the player
-			if (petData == PetData.NEXLING && nextTravellingPoint != null)
+			if ((petData == PetData.NEXLING || config.forceRun()) && nextTravellingPoint != null)
 			{
 				nextTravellingPoint = PathingLogic.calculateNextTravellingPoint(client,nextTravellingPoint,worldArea,true, this::extraBlockageCheck);
 			}
