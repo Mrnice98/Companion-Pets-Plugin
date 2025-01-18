@@ -9,7 +9,6 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ClientTick;
 
-
 public class PetObjectModel
 {
 	private Client client;
@@ -43,7 +42,22 @@ public class PetObjectModel
 	public void init(Client client,PetData petData)
 	{
 		this.client = client;
-		this.rlObject = client.createRuneLiteObject();
+
+		this.rlObject = new RuneLiteObject(client)
+		{
+			@Override
+			public Model getModel() {
+				Model m = super.getModel();
+				if (PetObjectModel.this.petData.getScale() != -1)
+				{
+					m = m.scale(PetObjectModel.this.petData.getScale(), PetObjectModel.this.petData.getScale(), PetObjectModel.this.petData.getScale());
+				}
+				return m;
+			}
+		};
+
+
+		this.rlObject.setWorldView(-1);
 		this.petData = petData;
 		for (int i = 0; i < MAX_TARGET_QUEUE_SIZE; i++)
 		{
@@ -76,10 +90,6 @@ public class PetObjectModel
 		rlObject.setModel(model);
 	}
 
-	public int getHeight()
-	{
-		return rlObject.getModelHeight();
-	}
 
 	public RuneLiteObject getRlObject()
 	{
@@ -111,7 +121,6 @@ public class PetObjectModel
 		{
 			rlObject.setLocation(new LocalPoint(0, 0), client.getPlane());
 		}
-
 		rlObject.setOrientation(jauOrientation);
 		rlObject.setShouldLoop(true);
 		rlObject.setActive(true);
@@ -279,8 +288,9 @@ public class PetObjectModel
 
 					LocalPoint newLocation = new LocalPoint(currentPosition.getX() + dx , currentPosition.getY() + dy);
 
-
+					int zOff = Perspective.getTileHeight(client,rlObject.getLocation(),rlObject.getLevel());
 					rlObject.setLocation(newLocation, targetPlane);
+					rlObject.setZ(zOff);
 
 					dx = targetPosition.getX() - rlObject.getLocation().getX();
 					dy = targetPosition.getY() - rlObject.getLocation().getY();

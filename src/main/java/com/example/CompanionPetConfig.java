@@ -119,9 +119,21 @@ public interface CompanionPetConfig extends Config
 
 
 	@ConfigItem(
+			keyName = "disableWhistle",
+			name = "Disable Fake Follower",
+			description = "Disables the ability to spawn a fake follower by clicking the call pet whistle.",
+			hidden = false
+	)
+	default boolean disableWhistle()
+	{
+		return false;
+	}
+
+
+	@ConfigItem(
 			keyName = "debug",
 			name = "Enable Debug",
-			description = "Enables Debug",
+			description = "Enables Debug.",
 			hidden = false
 	)
 	default boolean debug()
@@ -132,12 +144,23 @@ public interface CompanionPetConfig extends Config
 	@ConfigItem(
 			keyName = "allowBrokenPets",
 			name = "Enable Broken Pets",
-			description = "These pets do not scale correctly and are awaiting a RL update to fix",
-			hidden = false
+			description = "These pets do not scale correctly and are awaiting a RL update to fix.",
+			hidden = true
 	)
 	default boolean allowBrokenPets()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+			keyName = "sizeModifier",
+			name = "Size Modifier",
+			description = "Multiples the pets current size by this number",
+			hidden = false
+	)
+	default int sizeModifier()
+	{
+		return 1;
 	}
 
 }

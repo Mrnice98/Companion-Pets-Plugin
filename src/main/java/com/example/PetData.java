@@ -47,7 +47,7 @@ public enum PetData {
     ELIDINIS_DAMAGED_GUARDIAN("Elidinis' Damaged Guardian","Elidinis' Damaged Guardian",false,9660,119,NpcID.ELIDINIS_DAMAGED_GUARDIAN,ItemID.ELIDINIS_DAMAGED_GUARDIAN,Lists.newArrayList(46332),1,9420,9420,9420,65,-1,-1,null,true,"A tiny automaton imbued with a trace of Elidinis' power.\n","Killcount:Karibola:1472:January 9, 2023",588),
     //check for 180 rotate for below
     AKKHITO("Akkhito","Akkhito",false,9770,59,NpcID.AKKHITO,ItemID.AKKHITO,Lists.newArrayList(46360,46356,46357),1,9760,9421,9421,58,-1,-1,null,true,"Small, but still strong.\n","Killcount:Karibola:1472:January 9, 2023",588),
-    BABI("Babi","Babi",false,9742,59,NpcID.BABI,ItemID.BABI,Lists.newArrayList(46352,46350),1,9741,9739,9739,36,-1,-1,null,true,"Her mother's daughter. Fond of bananas.\n","Killcount:Karibola:1472:January 9, 2023",555),
+    BABI("Babi","Babi",false,9744,89,NpcID.BABI,ItemID.BABI,Lists.newArrayList(46352,46350),1,9741,9739,9739,36,-1,-1,null,true,"Her mother's daughter. Fond of bananas.\n","Killcount:Karibola:1472:January 9, 2023",555),
     KEPHRITI("Kephriti","Kephriti",false,9578,89,NpcID.KEPHRITI,ItemID.KEPHRITI,Lists.newArrayList(46417),1,9572,9419,9419,38,-1,40,null,true,"The tiniest bug can still make worlds fall over.\n","Killcount:Karibola:1472:January 9, 2023",579),
     ZEBO("Zebo","Zebo",true,2039,11,NpcID.ZEBO,ItemID.ZEBO,Lists.newArrayList(46509),2,2037,2036,2036,112,-1,-1,null,true,"Chomp.\n","Killcount:Karibola:1472:January 9, 2023",588),
 
@@ -70,30 +70,46 @@ public enum PetData {
 
     KRAKEN("Kraken","Kraken",true,3992,17,NpcID.KRAKEN,ItemID.PET_KRAKEN,Lists.newArrayList(28231),1,3989,3989,3989,15,30,30,null,false,"We'll fight, until world's end.\n","Killcount:Kraken Wall:26510:July 14, 2020",588),
 
+    RAX("Rax","Rax",true,8147,18,NpcID.RAX,ItemID.RAX,Lists.newArrayList(44936),1,8340,9139,9139,64,-1,-1,null,true,"Really hope she doesn't crawl into my mouth while I sleep.\n","Killcount:Hallisa:10394:September 27, 2024",588),
+    NID("Nid","Nid",true,11476,20,NpcID.NID,ItemID.NID,Lists.newArrayList(54289),1,11473,11474,11474,25,-1,-1,null,true,"Looks like a respectable gentleman.\n","Killcount:Hallisa:10394:September 27, 2024",588),
+
     //GWD----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     GENERAL_GRAARDOR_JR("General Graardor Jr.","General Graardor Jr.",true,7021,15,NpcID.GENERAL_GRAARDOR_JR,ItemID.PET_GENERAL_GRAARDOR,Lists.newArrayList(27660,27665),1,7017,7016,7016,30,30,30,null,false,"Totally unintelligible.\n","Killcount:Malfoy:19007:October 25, 2019",589),
-    KREEARRA_JR("Kree'arra Jr.","Kree'arra Jr.",false,6980,19,NpcID.KREEARRA_JR,ItemID.PET_KREEARRA,Lists.newArrayList(28019,28021,28020),1,7166,7167,7167,30,30,30,null,false,"Is it a bird, is it... no it's a bird.\n","Killcount:Runecraft:20109:May 25, 2020",588),
+    KREEARRA_JR("Kree'arra Jr.","Kree'arra Jr.",false,6981,13,NpcID.KREEARRA_JR,ItemID.PET_KREEARRA,Lists.newArrayList(28019,28021,28020),1,7166,7167,7167,30,30,30,null,false,"Is it a bird, is it... no it's a bird.\n","Killcount:Runecraft:20109:May 25, 2020",588),
     ZILYANA_JR("Zilyana Jr.","Zilyana Jr.",true,6967,16,NpcID.ZILYANA_JR,ItemID.PET_ZILYANA,Lists.newArrayList(27989,27937,27985,27968,27990),1,6966,6965,6965,60,30,30,null,false,"Somehow a junior even though she's named after her spawn mother!","Killcount:Letsjjj:26472:January 17, 2022",588),
-    KRIL_TSUTSAROTH_JR("K'ril Tsutsaroth Jr.","K'ril Tsutsaroth Jr.",false,6950,31,NpcID.KRIL_TSUTSAROTH_JR,ItemID.PET_KRIL_TSUTSAROTH,Lists.newArrayList(27683,27681,27692,27682,27690),1,6935,4070,4070,20,30,30,null,false,"Where did he even come from?","Killcount:Xl3g3ndgOdX:21654:February 18, 2023",588),//check
+    KRIL_TSUTSAROTH_JR("K'ril Tsutsaroth Jr.","K'ril Tsutsaroth Jr.",false,6948,18,NpcID.KRIL_TSUTSAROTH_JR,ItemID.PET_KRIL_TSUTSAROTH,Lists.newArrayList(27683,27681,27692,27682,27690),1,6935,4070,4070,20,30,30,null,false,"Where did he even come from?","Killcount:Xl3g3ndgOdX:21654:February 18, 2023",588),//check
     NEXLING("Nexling","Nexling",true,9182,35,NpcID.NEXLING,ItemID.NEXLING,Lists.newArrayList(43209),1,9177,9176,9176,48,-1,-1,null,false,"The gods don't quite fear this one.\n","Shards:Homer LT 0_o:17913:August 15, 2022",614),
+
+    //DT2--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    BUTCH("Butch","Butch",true,10340,59,NpcID.BUTCH,ItemID.BUTCH,Lists.newArrayList(49298),1,10337,10339,10339,60,-1,-1,null,false,"A tiny headless executioner.","Killcount:nofkeysumsy:17004:August 11, 2024",588),
+    BARON("Baron","Baron",true,10219,13,NpcID.BARON,ItemID.BARON,Lists.newArrayList(49195),1,10217,10218,10218,-1,-1,-1,Lists.newArrayList((short)937,(short)790, (short)33988,(short)39207),false,"Better keep an eye on this one.","Killcount:Prince Mate:15470:September 30, 2024",588),
+    LILVIATHAN("Lil'viathan","Lil'viathan",true,10283,59,NpcID.LILVIATHAN,ItemID.LILVIATHAN,Lists.newArrayList(49285,49284),1,10277,10292,10292,20,20,30,null,false,"A small creature deformed by the Abyss.","Killcount:PJoshGRS:14898:July 15, 2024",588),
+    WISP("Wisp","Wisp",true,10234,59,NpcID.WISP,ItemID.WISP,Lists.newArrayList(49222,49218,49221,49224),1,10230,10233,10233,40,-1,76,null,false,"Born in the shadows.","Killcount:greg btw:11753:December 11, 2024",588),
 
 
     //Other Boss pets----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    SCURRY("Scurry","Scurry",true,10693,59,NpcID.SCURRY,ItemID.SCURRY,Lists.newArrayList(50146),1,10687,10715,10715,28,30,30,null,false,"She works on the railroad.","Killcount:Blasphemy:15476:November 12, 2024",588),
+
+    MOXI("Moxi","Moxi",true,11013,59,NpcID.MOXI,ItemID.MOXI,Lists.newArrayList(54438,54437),1,11528,11529,11529,32,-1,-1,null,false,"A tiny frost nagua.","Killcount:PvP:14928:December 20, 2024",588),
+
+    HUBERTE("Huberte","Huberte",true,11734,89,NpcID.HUBERTE,ItemID.HUBERTE,Lists.newArrayList(54453),1,11732,11733,11733,100,-1,-1,null,false,"Looks very polite.","Killcount:Maxed Whip:2454:December 20, 2024",588),
 
     //inferno
     JAL_NIB_REK("Jal-Nib-Rek","Jal-Nib-Rek",true,7574,11,NpcID.JALNIBREK,ItemID.JALNIBREK,Lists.newArrayList(33005),1,7573,7572,7572,-1,30,30,null,true,"It loves to nibble.\n","Killcount:Oglong King:236:May 8, 2022",588),//check
-    TZREK_ZUK("TzRek-Zuk","TzRek-Zuk",false,7978,14,NpcID.TZREKZUK,ItemID.TZREKZUK,Lists.newArrayList(34586),1,7975,7977,7977,18,30,30,null,true,"Not quite so fearsome anymore.","Killcount:Oglong King:236:May 8, 2022",588),//check
+    TZREK_ZUK("TzRek-Zuk","TzRek-Zuk",true,7978,13,NpcID.TZREKZUK,ItemID.TZREKZUK,Lists.newArrayList(34586),1,7975,7977,7977,18,30,30,null,true,"Not quite so fearsome anymore.","Killcount:Oglong King:236:May 8, 2022",588),//check
 
     //jad
     TZREK_JAD("TzRek-Jad","TzRek-Jad",true,2652,11,NpcID.TZREKJAD,ItemID.TZREKJAD,Lists.newArrayList(9319),1,2650,5805,5805,20,60,-1,null,true,"This is not going to hurt... but it might tickle.","Killcount:A LeBlanc:525:Unknown",588),
     JALREK_JAD("JalRek-Jad","JalRek-Jad",true,7593,17,NpcID.JALREKJAD,ItemID.JALREKJAD,Lists.newArrayList(33012),1,7589,8857,8857,20,-10,-1,null,true,"Small, troublesome, cute.","Killcount:A LeBlanc:525:Unknown",8858),
+
+    SMOL_HEREDIT("Smol Heredit","Smol Heredit",true,10882,120,NpcID.SMOL_HEREDIT,ItemID.SMOL_HEREDIT,Lists.newArrayList(52580,52582,52578),1,10874,10880,10880,50,20,30,null,true,"Still somewhat imposing, I suppose.","Killcount:I have egg73:692:June 23, 2024",588),
 
     //Guantlet
     YOUNGLLEF("Youngllef","Youngllef",false,8418,22,NpcID.YOUNGLLEF,ItemID.YOUNGLLEF,Lists.newArrayList(38596),1,8417,8428,8428,25,-1,-1,null,true,"Looks like a bit of a nightmare.","Killcount:Design Sir:4246: May 19, 2022",8427),
     CORRUPTED_YOUNGLLEF("Corrupted Youngllef","Corrupted Youngllef",false,8418,22,NpcID.CORRUPTED_YOUNGLLEF,ItemID.CORRUPTED_YOUNGLLEF,Lists.newArrayList(38597),1,8417,8428,8428,25,-1,-1,null,true,"Looks like a bit of a nightmare.","Killcount:Design Sir:4246: May 19, 2022",8427),
 
     //corp
-    DARK_CORE("Dark core","Dark core",true,-1,-1,-1,ItemID.PET_DARK_CORE,Lists.newArrayList(11069),1,7980,2417,2417,83,30,30,null,true,"Isn't so annoying when in pet form.\n","Killcount:Flikker:36413:June 28, 2022",-1),
+    DARK_CORE("Dark core","Dark core",true,7980,14,NpcID.DARK_CORE,ItemID.PET_DARK_CORE,Lists.newArrayList(11069),1,7980,2417,2417,83,30,30,null,true,"Isn't so annoying when in pet form.\n","Killcount:Flikker:36413:June 28, 2022",588),
     CORPOREAL_CRITTER("Corporeal Critter","Corporeal Critter",true,1679,6,NpcID.CORPOREAL_CRITTER,ItemID.PET_CORPOREAL_CRITTER,Lists.newArrayList(11056),1,1678,7974,7974,64,30,30,null,true,"A critter from the spirit realm.\n","Killcount:Flikker:36413:June 28, 2022",588),
 
     //zulrah
@@ -155,6 +171,7 @@ public enum PetData {
     SCORPIAS_OFFSPRING("Scorpia's offspring","Scorpia's offspring",true,6254,10,NpcID.SCORPIAS_OFFSPRING,ItemID.SCORPIAS_OFFSPRING,Lists.newArrayList(29193),2,6258,6257,6257,280,30,30,Lists.newArrayList((short)142,(short)4525,(short)4636,(short)4884,(short)4645  ,(short)28,(short)16,(short)16,(short)16,(short)16),false,"A scuttling little scorpion with an incredibly vicious tail.\n","Killcount:The Gang:12736:October 25, 2022",3008),
 
     //SKILLING-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    QUETZIN("Quetzin","Quetzin",false,10953,12,NpcID.QUETZIN,ItemID.QUETZIN,Lists.newArrayList(52601),1,10952,10952,10952,-1,40,-1,null,false,"Is this bird tailing me?","Rumors:Tech Spectre:5694:June 22, 2024",588),
 
     //farming
     TANGLEROOT("Tangleroot","Tangleroot",true,7314,9,NpcID.TANGLEROOT,ItemID.TANGLEROOT,Lists.newArrayList(32202),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
@@ -312,6 +329,7 @@ public enum PetData {
             IKKLE_HYDRA,
             PET_SMOKE_DEVIL_6655,
             KRAKEN,
+            RAX,
 
             //GWD----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             GENERAL_GRAARDOR_JR,
@@ -322,6 +340,7 @@ public enum PetData {
 
             //Other Boss pets----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+            SMOL_HEREDIT,
             JAL_NIB_REK,
             TZREK_JAD,
             YOUNGLLEF,
@@ -334,9 +353,18 @@ public enum PetData {
             SRARACHA,
             SKOTOS,
             VORKI,
+            MOXI,
+            HUBERTE,
+            SCURRY,
             DAGANNOTH_SUPREME_JR,
             DAGANNOTH_PRIME_JR,
             DAGANNOTH_REX_JR,
+
+            //DT2--------------------------------------------------------------
+            BARON,
+            BUTCH,
+            WISP,
+            LILVIATHAN,
 
             //WILDY-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -364,6 +392,7 @@ public enum PetData {
             SMOLCANO,
             TINY_TEMPOR,
             ABYSSAL_PROTECTOR,
+            QUETZIN,
 
             //MISC-----------------------------------------------------------------------------------------------------------------------------------------------------------------
             PENANCE_PET,
@@ -545,6 +574,10 @@ public enum PetData {
         //thermy
         morphModel.put(PET_SMOKE_DEVIL,PET_SMOKE_DEVIL_6655);
         morphModel.put(PET_SMOKE_DEVIL_6655,PET_SMOKE_DEVIL);
+
+        //arraxor
+        morphModel.put(RAX,NID);
+        morphModel.put(NID,RAX);
 
         //corp
         morphModel.put(DARK_CORE,CORPOREAL_CRITTER);

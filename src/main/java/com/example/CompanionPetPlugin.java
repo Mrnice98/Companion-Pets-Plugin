@@ -278,7 +278,7 @@ public class CompanionPetPlugin extends Plugin
 
 		String message = event.getMessage();
 
-		if (message.equals("You do not have a follower.") && event.getType() == ChatMessageType.GAMEMESSAGE)
+		if (message.equals("You do not have a follower.") && event.getType() == ChatMessageType.GAMEMESSAGE && !config.disableWhistle())
 		{
 			callPet(event);
 		}
@@ -474,7 +474,7 @@ public class CompanionPetPlugin extends Plugin
 			{
 				pet.getRlObject().setDrawFrontTilesFirst(true);
 			}
-			else if (pet.getRlObject().getAnimation() == pet.animationPoses[0] && pet.getRlObject().drawFrontTilesFirst())
+			else if (pet.getRlObject().getAnimation() == pet.animationPoses[0] && pet.getRlObject().isDrawFrontTilesFirst())
 			{
 				pet.getRlObject().setDrawFrontTilesFirst(false);
 			}
@@ -677,7 +677,6 @@ public class CompanionPetPlugin extends Plugin
 				client.getNpcs().forEach(npc -> localPoints.add(npc.getLocalLocation()));
 
 				boolean overlappingModel = localPoints.stream().anyMatch(localPoint -> localPoint.equals(pet.getLocalLocation()));
-
 				return !overlappingModel;
 			}
 

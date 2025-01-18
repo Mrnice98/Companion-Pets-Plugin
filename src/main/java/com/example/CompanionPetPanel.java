@@ -652,10 +652,10 @@ public class CompanionPetPanel extends PluginPanel {
 
         for (PetData petData : petList)
         {
-            if (!petData.isWorking() && !config.allowBrokenPets())
-            {
-                continue;
-            }
+//            if (!petData.isWorking() && !config.allowBrokenPets())
+//            {
+//                continue;
+//            }
 
             Icon icon = new ImageIcon(itemManager.getImage(petData.getIconID()));
 
