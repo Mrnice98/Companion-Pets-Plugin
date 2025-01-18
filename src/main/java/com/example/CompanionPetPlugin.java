@@ -900,12 +900,13 @@ public class CompanionPetPlugin extends Plugin
 		}
 
 		ModelData modelData = createModel(client,modelDataArray);
+		modelData.cloneVertices();
 
-		if (petData.getScale() != -1)
-		{
-			modelData.cloneVertices();
-			modelData.scale(petData.getScale(),petData.getScale(),petData.getScale());
-		}
+//		if (petData.getScale() != -1)
+//		{
+//			modelData.cloneVertices();
+//			modelData.scale(petData.getScale(),petData.getScale(),petData.getScale());
+//		}
 
 
 		//cut list in half fist half color to find, second half color to replace
