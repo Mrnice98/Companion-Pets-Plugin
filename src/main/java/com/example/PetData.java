@@ -95,8 +95,8 @@ public enum PetData {
     HUBERTE("Huberte","Huberte",true,11734,89,NpcID.HUBERTE,ItemID.HUBERTE,Lists.newArrayList(54453),1,11732,11733,11733,100,-1,-1,null,false,"Looks very polite.","Killcount:Maxed Whip:2454:December 20, 2024",588),
 
     //inferno
-    JAL_NIB_REK("Jal-Nib-Rek","Jal-Nib-Rek",true,7574,11,NpcID.JALNIBREK,ItemID.JALNIBREK,Lists.newArrayList(33005),1,7573,7572,7572,-1,30,30,null,true,"It loves to nibble.\n","Killcount:Oglong King:236:May 8, 2022",588),//check
-    TZREK_ZUK("TzRek-Zuk","TzRek-Zuk",true,7978,13,NpcID.TZREKZUK,ItemID.TZREKZUK,Lists.newArrayList(34586),1,7975,7977,7977,18,30,30,null,true,"Not quite so fearsome anymore.","Killcount:Oglong King:236:May 8, 2022",588),//check
+    JAL_NIB_REK("Jal-Nib-Rek","Jal-Nib-Rek",true,7574,11,NpcID.JALNIBREK,ItemID.JALNIBREK,Lists.newArrayList(33005),1,7573,7572,7572,-1,30,30,null,true,"It loves to nibble.\n","Killcount:c h u c kles:269:March 1, 2025",588),//check
+    TZREK_ZUK("TzRek-Zuk","TzRek-Zuk",true,7978,13,NpcID.TZREKZUK,ItemID.TZREKZUK,Lists.newArrayList(34586),1,7975,7977,7977,18,30,30,null,true,"Not quite so fearsome anymore.","Killcount:c h u c kles:269:March 1, 2025",588),//check
 
     //jad
     TZREK_JAD("TzRek-Jad","TzRek-Jad",true,2652,11,NpcID.TZREKJAD,ItemID.TZREKJAD,Lists.newArrayList(9319),1,2650,5805,5805,20,60,-1,null,true,"This is not going to hurt... but it might tickle.","Killcount:A LeBlanc:525:Unknown",588),
