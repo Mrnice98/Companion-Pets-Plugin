@@ -13,6 +13,7 @@ import net.runelite.api.geometry.SimplePolygon;
 import net.runelite.api.model.Jarvis;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.callback.Hooks;
+import net.runelite.client.chat.ChatCommandManager;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
@@ -84,6 +85,9 @@ public class CompanionPetPlugin extends Plugin
 	@Inject
 	private Hooks hooks;
 
+	@Inject
+	private ChatCommandManager chatCommandManager;
+
 	@Override
 	protected void startUp() throws Exception
 	{
@@ -91,8 +95,10 @@ public class CompanionPetPlugin extends Plugin
 		overlayManager.add(overlayPet);
 		eventBus.register(fakeDialogManager);
 		hooks.registerRenderableDrawListener(drawListener);
+		chatCommandManager.registerCommand("!mochi",this::setPetMochi);
 
 	}
+
 
 	@Override
 	protected void shutDown() throws Exception
@@ -104,6 +110,7 @@ public class CompanionPetPlugin extends Plugin
 		panel.removeAll();
 
 		clientThread.invokeLater(this::despawnAnyActivePOMs);
+		chatCommandManager.unregisterCommand("!mochi");
 
 
 	}
@@ -1173,6 +1180,11 @@ public class CompanionPetPlugin extends Plugin
 		}
 	}
 
+	private void setPetMochi(ChatMessage chatMessage, String s)
+	{
+		configManager.setConfiguration("CompanionPetPlugin","pet",PetData.MOCHI);
+		callPet(chatMessage);
+	}
 
 
 }
