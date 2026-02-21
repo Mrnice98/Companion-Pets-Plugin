@@ -176,74 +176,83 @@ public enum PetData {
     //Yami
     YAMI("Yami","Yami",true,12146,70,NpcID.YAMI,ItemID.YAMI,Lists.newArrayList(10339),1,12140,12143,12143,30,-1,-1,null,false,"Small, but somehow still looks down on me.\n","Killcount:Mason:Infinity:Never",588),
 
+    //Dom
+    DOM("Dom","Dom",true,12403,60,NpcID.DOM,ItemID.DOM,Lists.newArrayList(56456),1,12401,12402,12402,120,-1,-1,null,false,"Doom on a small scale.\n","Killcount:Mason:Infinity:Never",588),
+
+    //Gull
+    GULL("Gull","Gull",true,12588,90,NpcID.GULL_14931,ItemID.GULL,Lists.newArrayList(59403),1,12586,12587,12587,72,-1,-1,null,true,"Quite the scrongly little chicken.\n","Killcount:Mason:Infinity:Never",588),
+    GULLIVER("Gulliver","Gulliver",true,12551,60,NpcID.GULLIVER,ItemID.GULLIVER,Lists.newArrayList(59398),1,12548,12550,12550,30,-1,-1,null,true,"Quite the scrongly little chicken.\n","Killcount:Mason:Infinity:Never",588),
+
 
     //SKILLING-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     QUETZIN("Quetzin","Quetzin",false,10953,12,NpcID.QUETZIN,ItemID.QUETZIN,Lists.newArrayList(52601),1,10952,10952,10952,-1,40,-1,null,false,"Is this bird tailing me?","Rumors:Tech Spectre:5694:June 22, 2024",588),
 
     //farming
-    TANGLEROOT("Tangleroot","Tangleroot",true,7314,9,NpcID.TANGLEROOT,ItemID.TANGLEROOT,Lists.newArrayList(32202),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
-    TANGLEROOT_9492("Tangleroot 9492","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9492,ItemID.TANGLEROOT_24555,Lists.newArrayList(39573),1,7312,7313,7313,-1,30,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
-    TANGLEROOT_9493("Tangleroot 9493","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9493,ItemID.TANGLEROOT_24557,Lists.newArrayList(39571),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
-    TANGLEROOT_9494("Tangleroot 9494","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9494,ItemID.TANGLEROOT_24559,Lists.newArrayList(39572),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
-    TANGLEROOT_9495("Tangleroot 9495","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9495,ItemID.TANGLEROOT_24561,Lists.newArrayList(39574),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
-    TANGLEROOT_9496("Tangleroot 9496","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9496,ItemID.TANGLEROOT_24563,Lists.newArrayList(39575),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experiance:Yogololo:200,000,000:September 03, 2021",567),
+    TANGLEROOT("Tangleroot","Tangleroot",true,7314,9,NpcID.TANGLEROOT,ItemID.TANGLEROOT,Lists.newArrayList(32202),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experience:Yogololo:200,000,000:September 03, 2021",567),
+    TANGLEROOT_9492("Tangleroot 9492","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9492,ItemID.TANGLEROOT_24555,Lists.newArrayList(39573),1,7312,7313,7313,-1,30,-1,null,true,"Don't be hasty.\n","Experience:Yogololo:200,000,000:September 03, 2021",567),
+    TANGLEROOT_9493("Tangleroot 9493","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9493,ItemID.TANGLEROOT_24557,Lists.newArrayList(39571),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experience:Yogololo:200,000,000:September 03, 2021",567),
+    TANGLEROOT_9494("Tangleroot 9494","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9494,ItemID.TANGLEROOT_24559,Lists.newArrayList(39572),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experience:Yogololo:200,000,000:September 03, 2021",567),
+    TANGLEROOT_9495("Tangleroot 9495","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9495,ItemID.TANGLEROOT_24561,Lists.newArrayList(39574),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experience:Yogololo:200,000,000:September 03, 2021",567),
+    TANGLEROOT_9496("Tangleroot 9496","Tangleroot",true,7314,9,NpcID.TANGLEROOT_9496,ItemID.TANGLEROOT_24563,Lists.newArrayList(39575),1,7312,7313,7313,-1,-1,-1,null,true,"Don't be hasty.\n","Experience:Yogololo:200,000,000:September 03, 2021",567),
 
     //agility
     GIANT_SQUIRREL("Giant Squirrel","Giant Squirrel",true,7311,9,NpcID.GIANT_SQUIRREL,ItemID.GIANT_SQUIRREL,Lists.newArrayList(32206),1,7309,7310,7310,110,-1,-1,null,true,"A giant squirrel with beautiful markings.\n","Laps:SiennaEhtycs:39402:January 20, 2022",614),
     DARK_SQUIRREL("Dark Squirrel","Dark Squirrel",true,7311,9,NpcID.DARK_SQUIRREL,ItemID.DARK_SQUIRREL,Lists.newArrayList(32206),1,7309,7310,7310,110,-1,-1,Lists.newArrayList((short)38160,(short)38156,(short)3633,(short)3290,(short)3623,(short)4430  ,(short)24,(short)12,(short)668,(short)24,(short)673,(short)12),true,"A giant squirrel with beautiful markings.\n","Laps:SiennaEhtycs:39402:January 20, 2022",614),
+    BONE_SQUIRREL("Bone Squirrel","Bone Squirrel",true,11664,10,NpcID.BONE_SQUIRREL,ItemID.BONE_SQUIRREL,Lists.newArrayList(54969),1,11662,11663,11663,110,-1,-1,null,true,"A giant squirrel with a skeletal aesthetic.\n","Laps:SiennaEhtycs:39402:January 20, 2022",614),
+
 
     //Rc
-    RIFT_GUARDIAN("Rift guardian","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN,ItemID.RIFT_GUARDIAN,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,null,true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7338("Rift guardian 7338","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7338,ItemID.RIFT_GUARDIAN_20667,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)103,(short)127,(short)74),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),//check
-    RIFT_GUARDIAN_7339("Rift guardian 7339","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7339,ItemID.RIFT_GUARDIAN_20669,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)0,(short)5056,(short)5551),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7340("Rift guardian 7340","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7340,ItemID.RIFT_GUARDIAN_20671,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)39849,(short)38866,(short)38086),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7341("Rift guardian 7341","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7341,ItemID.RIFT_GUARDIAN_20673,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)6036,(short)6942,(short)6319),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7342("Rift guardian 7342","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7342,ItemID.RIFT_GUARDIAN_20675,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)43961,(short)0,(short)43313),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7343("Rift guardian 7343","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7343,ItemID.RIFT_GUARDIAN_20677,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)10469,(short)11200,(short)10425),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7344("Rift guardian 7344","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7344,ItemID.RIFT_GUARDIAN_20679,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)7104,(short)127,(short)5551),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7345("Rift guardian 7345","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7345,ItemID.RIFT_GUARDIAN_20681,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)22430,(short)22461,(short)21698),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7346("Rift guardian 7346","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7346,ItemID.RIFT_GUARDIAN_20683,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)43945,(short)43968,(short)43313),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7347("Rift guardian 7347","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7347,ItemID.RIFT_GUARDIAN_20685,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)127,(short)0,(short)74),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7348("Rift guardian 7348","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7348,ItemID.RIFT_GUARDIAN_20687,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)43484,(short)46040,(short)45361),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7349("Rift guardian 7349","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7349,ItemID.RIFT_GUARDIAN_20689,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)54503,(short)54742,(short)54449),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7350("Rift guardian 7350","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7350,ItemID.RIFT_GUARDIAN_20691,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)920,(short)910,(short)57),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    RIFT_GUARDIAN_7351("Rift guardian 7351","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_8024,ItemID.RIFT_GUARDIAN_21990,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)4,(short)962,(short)43059),true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",588),
-    GREATISH_GUARDIAN("Greatish guardian","Greatish guardian",true,9382,23,NpcID.GREATISH_GUARDIAN,ItemID.GREATISH_GUARDIAN,Lists.newArrayList(44061),1,9379,9378,9378,32,20,20,null,true,"An abyssal rift guardian.\n","Experiance:Tero:103,501,840:January 12, 2021",589),
+    RIFT_GUARDIAN("Rift guardian","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN,ItemID.RIFT_GUARDIAN,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,null,true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7338("Rift guardian 7338","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7338,ItemID.RIFT_GUARDIAN_20667,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)103,(short)127,(short)74),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),//check
+    RIFT_GUARDIAN_7339("Rift guardian 7339","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7339,ItemID.RIFT_GUARDIAN_20669,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)0,(short)5056,(short)5551),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7340("Rift guardian 7340","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7340,ItemID.RIFT_GUARDIAN_20671,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)39849,(short)38866,(short)38086),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7341("Rift guardian 7341","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7341,ItemID.RIFT_GUARDIAN_20673,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)6036,(short)6942,(short)6319),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7342("Rift guardian 7342","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7342,ItemID.RIFT_GUARDIAN_20675,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)43961,(short)0,(short)43313),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7343("Rift guardian 7343","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7343,ItemID.RIFT_GUARDIAN_20677,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)10469,(short)11200,(short)10425),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7344("Rift guardian 7344","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7344,ItemID.RIFT_GUARDIAN_20679,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)7104,(short)127,(short)5551),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7345("Rift guardian 7345","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7345,ItemID.RIFT_GUARDIAN_20681,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)22430,(short)22461,(short)21698),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7346("Rift guardian 7346","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7346,ItemID.RIFT_GUARDIAN_20683,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)43945,(short)43968,(short)43313),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7347("Rift guardian 7347","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7347,ItemID.RIFT_GUARDIAN_20685,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)127,(short)0,(short)74),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7348("Rift guardian 7348","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7348,ItemID.RIFT_GUARDIAN_20687,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)43484,(short)46040,(short)45361),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7349("Rift guardian 7349","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7349,ItemID.RIFT_GUARDIAN_20689,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)54503,(short)54742,(short)54449),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7350("Rift guardian 7350","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_7350,ItemID.RIFT_GUARDIAN_20691,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)920,(short)910,(short)57),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    RIFT_GUARDIAN_7351("Rift guardian 7351","Rift guardian",true,7308,7,NpcID.RIFT_GUARDIAN_8024,ItemID.RIFT_GUARDIAN_21990,Lists.newArrayList(32204),1,7307,7306,7306,-1,-1,-1,Lists.newArrayList((short)939,(short)960,(short)60595  ,(short)4,(short)962,(short)43059),true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",588),
+    GREATISH_GUARDIAN("Greatish guardian","Greatish guardian",true,9382,23,NpcID.GREATISH_GUARDIAN,ItemID.GREATISH_GUARDIAN,Lists.newArrayList(44061),1,9379,9378,9378,32,20,20,null,true,"An abyssal rift guardian.\n","Experience:Tero:103,501,840:January 12, 2021",589),
 
     //Mining
-    ROCK_GOLEM("Rock Golem","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM,ItemID.ROCK_GOLEM,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,null,true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21187("Rock Golem 21187","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7439,ItemID.ROCK_GOLEM_21187,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)66,(short)61,(short)49,(short)53,(short)53,(short)49),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21188("Rock Golem 21188","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7440,ItemID.ROCK_GOLEM_21188,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)4044,(short)3912,(short)3906,(short)3901,(short)3897,(short)4021),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21189("Rock Golem 21189","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7441,ItemID.ROCK_GOLEM_21189,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)2337,(short)2332,(short)2328,(short)2452,(short)3346,(short)3470),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21190("Rock Golem 21190","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7442,ItemID.ROCK_GOLEM_21190,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)43235,(short)43233,(short)43486,(short)43482,(short)43862,(short)43730),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21191("Rock Golem 21191","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7443,ItemID.ROCK_GOLEM_21191,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)43105,(short)43100,(short)43096,(short)43092,(short)43088,(short)43084),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21192("Rock Golem 21192","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7444,ItemID.ROCK_GOLEM_21192,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)10388,(short)10512,(short)10508,(short)10378,(short)8,(short)4),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21193("Rock Golem 21193","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7445,ItemID.ROCK_GOLEM_21193,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)8134,(short)8128,(short)7104,(short)7101,(short)7099,(short)7097),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21194("Rock Golem 21194","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7446,ItemID.ROCK_GOLEM_21194,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)43181,(short)43177,(short)43173,(short)43297,(short)43292,(short)43288),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21195("Rock Golem 21195","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7447,ItemID.ROCK_GOLEM_21195,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)4550,(short)4548,(short)4544,(short)4539,(short)4535,(short)2487),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21196("Rock Golem 21196","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7448,ItemID.ROCK_GOLEM_21196,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)21675,(short)21671,(short)21667,(short)21662,(short)21658,(short)21782),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21197("Rock Golem 21197","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7449,ItemID.ROCK_GOLEM_21197,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)36145,(short)36141,(short)36137,(short)36133,(short)36257,(short)36252),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21198("Rock Golem 21198","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7450,ItemID.ROCK_GOLEM_21340,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)63830,(short)62800,(short)63692,(short)60624,(short)63675,(short)63663),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21199("Rock Golem 21199","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7451,ItemID.ROCK_GOLEM_21358,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)805,(short)929,(short)798,(short)796,(short)790,(short)912),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21200("Rock Golem 21200","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7452,ItemID.ROCK_GOLEM_21359,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)50999,(short)50995,(short)50993,(short)49967,(short)50087,(short)51098),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
-    ROCK_GOLEM_21201("Rock Golem 21201","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7453,ItemID.ROCK_GOLEM_21360,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)31531,(short)31655,(short)31651,(short)31518,(short)31640,(short)30612),true,"Found somewhere between a rock and a hard place.\n","Experiance:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM("Rock Golem","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM,ItemID.ROCK_GOLEM,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,null,true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21187("Rock Golem 21187","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7439,ItemID.ROCK_GOLEM_21187,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)66,(short)61,(short)49,(short)53,(short)53,(short)49),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21188("Rock Golem 21188","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7440,ItemID.ROCK_GOLEM_21188,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)4044,(short)3912,(short)3906,(short)3901,(short)3897,(short)4021),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21189("Rock Golem 21189","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7441,ItemID.ROCK_GOLEM_21189,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)2337,(short)2332,(short)2328,(short)2452,(short)3346,(short)3470),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21190("Rock Golem 21190","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7442,ItemID.ROCK_GOLEM_21190,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)43235,(short)43233,(short)43486,(short)43482,(short)43862,(short)43730),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21191("Rock Golem 21191","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7443,ItemID.ROCK_GOLEM_21191,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)43105,(short)43100,(short)43096,(short)43092,(short)43088,(short)43084),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21192("Rock Golem 21192","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7444,ItemID.ROCK_GOLEM_21192,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)10388,(short)10512,(short)10508,(short)10378,(short)8,(short)4),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21193("Rock Golem 21193","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7445,ItemID.ROCK_GOLEM_21193,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)8134,(short)8128,(short)7104,(short)7101,(short)7099,(short)7097),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21194("Rock Golem 21194","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7446,ItemID.ROCK_GOLEM_21194,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)43181,(short)43177,(short)43173,(short)43297,(short)43292,(short)43288),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21195("Rock Golem 21195","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7447,ItemID.ROCK_GOLEM_21195,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)4550,(short)4548,(short)4544,(short)4539,(short)4535,(short)2487),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21196("Rock Golem 21196","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7448,ItemID.ROCK_GOLEM_21196,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)21675,(short)21671,(short)21667,(short)21662,(short)21658,(short)21782),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21197("Rock Golem 21197","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7449,ItemID.ROCK_GOLEM_21197,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)36145,(short)36141,(short)36137,(short)36133,(short)36257,(short)36252),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21198("Rock Golem 21198","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7450,ItemID.ROCK_GOLEM_21340,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)63830,(short)62800,(short)63692,(short)60624,(short)63675,(short)63663),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21199("Rock Golem 21199","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7451,ItemID.ROCK_GOLEM_21358,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)805,(short)929,(short)798,(short)796,(short)790,(short)912),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21200("Rock Golem 21200","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7452,ItemID.ROCK_GOLEM_21359,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)50999,(short)50995,(short)50993,(short)49967,(short)50087,(short)51098),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
+    ROCK_GOLEM_21201("Rock Golem 21201","Rock Golem",true,-1,-1,NpcID.ROCK_GOLEM_7453,ItemID.ROCK_GOLEM_21360,Lists.newArrayList(29755),1,7180,7181,7181,-1,-1,10,Lists.newArrayList((short)6823,(short)6697,(short)6819,(short)6814,(short)6682,(short)5656  ,(short)31531,(short)31655,(short)31651,(short)31518,(short)31640,(short)30612),true,"Found somewhere between a rock and a hard place.\n","Experience:D 4 L:200,000,000:October 16, 2019",7179),
 
     //fishing
-    HERON("Heron","Heron",true,6775,9,NpcID.HERON,ItemID.HERON,Lists.newArrayList(29756),1,6772,6774,6774,-1,-1,-1,null,true,"A long-legged bird that likes to fish.\n","Experiance:swftZ:172,714,570:January 19, 2020",7),
-    GREAT_BLUE_HERON("Great blue heron","Great blue heron",true,6775,9,NpcID.GREAT_BLUE_HERON,ItemID.GREAT_BLUE_HERON,Lists.newArrayList(41628),1,6772,6774,6774,-1,-1,-1,null,true,"A long-legged bird that likes to fish.\n","Experiance:swftZ:172,714,570:January 19, 2020",7),
+    HERON("Heron","Heron",true,6775,9,NpcID.HERON,ItemID.HERON,Lists.newArrayList(29756),1,6772,6774,6774,-1,-1,-1,null,true,"A long-legged bird that likes to fish.\n","Experience:swftZ:172,714,570:January 19, 2020",7),
+    GREAT_BLUE_HERON("Great blue heron","Great blue heron",true,6775,9,NpcID.GREAT_BLUE_HERON,ItemID.GREAT_BLUE_HERON,Lists.newArrayList(41628),1,6772,6774,6774,-1,-1,-1,null,true,"A long-legged bird that likes to fish.\n","Experience:swftZ:172,714,570:January 19, 2020",7),
 
-    BEAVER("Beaver","Beaver",true,-1,-1,NpcID.BEAVER,ItemID.BEAVER,Lists.newArrayList(29754),1,7177,7178,7178,-1,-1,-1,null,false,"Looks like it's gotten through a lot of wood.\n","Experiance:Vinny:177,611,398:October 11, 2020",6551),
+    BEAVER("Beaver","Beaver",true,-1,-1,NpcID.BEAVER,ItemID.BEAVER,Lists.newArrayList(29754),1,7177,7178,7178,-1,-1,-1,null,false,"Looks like it's gotten through a lot of wood.\n","Experience:Vinny:177,611,398:October 11, 2020",6551),
 
     //chin
-    BABY_CHINCHOMPA("Baby Chinchompa","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA_6756,ItemID.BABY_CHINCHOMPA,Lists.newArrayList(19371),1,5182,5181,5181,-1,-1,-1,Lists.newArrayList((short)5169,(short)7343,(short)7335,(short)7339,(short)7343,(short)5165  ,(short)3988,(short)3988,(short)3982,(short)3986,(short)5014,(short)3988),true,"Fluffy and cute, keep away from fire!\n","Experiance:Runecraft:121,584,270:September 26, 2017",7182),
-    BABY_CHINCHOMPA_13324("Baby Chinchompa 13324","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA,ItemID.BABY_CHINCHOMPA_13324,Lists.newArrayList(19371),1,5182,5181,5181,-1,-1,-1,null,true,"Fluffy and cute, keep away from fire!\n","Experiance:Runecraft:121,584,270:September 26, 2017",7182),
-    BABY_CHINCHOMPA_13325("Baby Chinchompa 13325","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA_6758,ItemID.BABY_CHINCHOMPA_13325,Lists.newArrayList(19371),1,5182,5181,5181,-1,-1,-1,Lists.newArrayList((short)5169,(short)7343,(short)7335,(short)7339,(short)7343,(short)5165  ,(short)20,(short)33,(short)12,(short)37,(short)45,(short)49),true,"Fluffy and cute, keep away from fire!\n","Experiance:Runecraft:121,584,270:September 26, 2017",7182),
-    BABY_CHINCHOMPA_13326("Baby Chinchompa 13326","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA_6759,ItemID.BABY_CHINCHOMPA_13326,Lists.newArrayList(29757),1,5182,5181,5181,-1,-1,-1,null,true,"Fluffy and cute, keep away from fire!\n","Experiance:Runecraft:121,584,270:September 26, 2017",7182),
+    BABY_CHINCHOMPA("Baby Chinchompa","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA_6756,ItemID.BABY_CHINCHOMPA,Lists.newArrayList(19371),1,5182,5181,5181,-1,-1,-1,Lists.newArrayList((short)5169,(short)7343,(short)7335,(short)7339,(short)7343,(short)5165  ,(short)3988,(short)3988,(short)3982,(short)3986,(short)5014,(short)3988),true,"Fluffy and cute, keep away from fire!\n","Experience:Runecraft:121,584,270:September 26, 2017",7182),
+    BABY_CHINCHOMPA_13324("Baby Chinchompa 13324","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA,ItemID.BABY_CHINCHOMPA_13324,Lists.newArrayList(19371),1,5182,5181,5181,-1,-1,-1,null,true,"Fluffy and cute, keep away from fire!\n","Experience:Runecraft:121,584,270:September 26, 2017",7182),
+    BABY_CHINCHOMPA_13325("Baby Chinchompa 13325","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA_6758,ItemID.BABY_CHINCHOMPA_13325,Lists.newArrayList(19371),1,5182,5181,5181,-1,-1,-1,Lists.newArrayList((short)5169,(short)7343,(short)7335,(short)7339,(short)7343,(short)5165  ,(short)20,(short)33,(short)12,(short)37,(short)45,(short)49),true,"Fluffy and cute, keep away from fire!\n","Experience:Runecraft:121,584,270:September 26, 2017",7182),
+    BABY_CHINCHOMPA_13326("Baby Chinchompa 13326","Baby Chinchompa",true,5185,12,NpcID.BABY_CHINCHOMPA_6759,ItemID.BABY_CHINCHOMPA_13326,Lists.newArrayList(29757),1,5182,5181,5181,-1,-1,-1,null,true,"Fluffy and cute, keep away from fire!\n","Experience:Runecraft:121,584,270:September 26, 2017",7182),
 
     //theiving
-    ROCKY("Rocky","Rocky",true,7318,4,NpcID.ROCKY,ItemID.ROCKY,Lists.newArrayList(32203),1,7315,7316,7316,110,-1,-1,null,true,"Raccoons, like pandas but worse.\n","Experiance:Stashes:200,000,000:December 26, 2020",588),
-    RED("Red","Red",true,7318,4,NpcID.RED,ItemID.RED,Lists.newArrayList(37361),1,7315,7316,7316,110,-1,-1,null,true,"Red panda, like pandas but red.\n","Experiance:Stashes:200,000,000:December 26, 2020",588),
-    ZIGGY("Ziggy","Ziggy",true,7318,4,NpcID.ZIGGY,ItemID.ZIGGY,Lists.newArrayList(14390),1,7315,7316,7316,110,-1,-1,null,true,"No relation to a regular raccoon.\n","Experiance:Stashes:200,000,000:December 26, 2020",588),
+    ROCKY("Rocky","Rocky",true,7318,4,NpcID.ROCKY,ItemID.ROCKY,Lists.newArrayList(32203),1,7315,7316,7316,110,-1,-1,null,true,"Raccoons, like pandas but worse.\n","Experience:Stashes:200,000,000:December 26, 2020",588),
+    RED("Red","Red",true,7318,4,NpcID.RED,ItemID.RED,Lists.newArrayList(37361),1,7315,7316,7316,110,-1,-1,null,true,"Red panda, like pandas but red.\n","Experience:Stashes:200,000,000:December 26, 2020",588),
+    ZIGGY("Ziggy","Ziggy",true,7318,4,NpcID.ZIGGY,ItemID.ZIGGY,Lists.newArrayList(14390),1,7315,7316,7316,110,-1,-1,null,true,"No relation to a regular raccoon.\n","Experience:Stashes:200,000,000:December 26, 2020",588),
 
     //WT
     PHOENIX("Phoenix","Phoenix",true,6811,10,NpcID.PHOENIX_7370,ItemID.PHOENIX,Lists.newArrayList(26852),1,6809,6808,6808,80,40,-1,null,true,"The essence of fire.\n","Killcount:Uneven Mango:15188:June 26, 2022",7),
@@ -260,6 +269,8 @@ public enum PetData {
 
     ABYSSAL_PROTECTOR("Abyssal protector","Abyssal protector",true,2186,9,NpcID.ABYSSAL_PROTECTOR,ItemID.ABYSSAL_PROTECTOR,Lists.newArrayList(44070),1,2185,2184,2184,80,-1,-1,null,false,"Your own personal abyssal horror.\n","Searches:Aradof:15186:December 19, 2022",614),
 
+    SOUP("Soup","Soup",true,13500,21,NpcID.SOUP,ItemID.SOUP,Lists.newArrayList(59482),1,13498,13499,13499,100,-1,-1,null,false,"A connoisseur of all liquid based foods..\n","Killcount:Mason:Infinity:Never",588),
+
     //MISC-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     PENANCE_PET("Penance Pet","Penance Pet",true,5411,7,NpcID.PENANCE_PET,ItemID.PET_PENANCE_QUEEN,Lists.newArrayList(20717,20715,20714,20709,20713,20712,20711,20710,20716),1,5410,5409,5409,29,30,30,null,false,"Run away! Run aw... wait, it's tiny...\n","Gambles:AbyssWalkerr:5223:January 18, 2023",589),
 
@@ -272,8 +283,12 @@ public enum PetData {
 
 
 
-    //Special Requests
+    //Special Requests and other fun "Pets"
     MOCHI("Mochi", "Mochi", true, 6562, 20, NpcID.ARCHIBALD, ItemID.SUNSHINE, Lists.newArrayList(55852), 1, 7269, 6577, 6577, -1, 10, 10, null, false, "A tiny, fluffy Yorkie with a big personality.", "Treats:Anfoone:5:A Walk", 600),
+    MAGGIE("Maggie", "Maggie", true, 6562, 20, NpcID.ARCHIBALD, ItemID.STRAY_DOG_PLUSH, Lists.newArrayList(55852), 1, 7269, 6577, 6577, -1, 10, 10, Lists.newArrayList((short)3621,(short)5685,(short)4649,(short)4657,(short)4634,(short)5696,(short)0,(short)4517,(short)4502,(short)5392,(short)5388,(short)10,(short)120,(short)110,(short)105,(short)0,(short)41,(short)0,(short)98,(short)90,(short)6357,(short)6339), false, "Treat bandit, wanted in Misthalin.", "ear scratch:you:1:today!", 600),
+    CORGI("Corgi", "Corgi", true, 6562, 20, NpcID.SIR_BURRUS, ItemID.ROYAL_CROWN, Lists.newArrayList(55847), 1, 7269, 6577, 6577, -1, 10, 10, null, false, "A regal little fellow.", "Treats:Randalicious:25:Christmas", 600),
+    BROAV("Broav", "Broav", true, 11233, 27, NpcID.BROAV, ItemID.BROAV, Lists.newArrayList(53343), 1, 11232, 11234, 11234, 120, 10, 10, null, false, "A Mort Myre mushroom-muncher.", "Quest Points:Mod Ash:270:November 26, 2008 ", 600),
+    SPOOKY_CHAIR("Spooky Chair", "Spooky Chair", true, 3221, 30, NpcID.SPOOKY_CHAIR, ItemID.SPOOKY_CHAIR, Lists.newArrayList(11470), 1, 10, 3220, 3220, -1, 10, 10, null, false, "A spooky, portable chair.", "Experience:Count Draynor:200,000,000:January 4, 2001", 600),
 
 
     ;
@@ -373,6 +388,8 @@ public enum PetData {
             DAGANNOTH_REX_JR,
             BRAN,
             YAMI,
+            DOM,
+            GULL,
 
             //DT2--------------------------------------------------------------
             BARON,
@@ -407,6 +424,7 @@ public enum PetData {
             TINY_TEMPOR,
             ABYSSAL_PROTECTOR,
             QUETZIN,
+            SOUP,
 
             //MISC-----------------------------------------------------------------------------------------------------------------------------------------------------------------
             PENANCE_PET,
@@ -414,7 +432,7 @@ public enum PetData {
             CHOMPY_CHICK,
             LIL_CREATOR
 
-            );
+    );
 
 
 
@@ -465,7 +483,8 @@ public enum PetData {
 
         //Agility
         morphModel.put(GIANT_SQUIRREL,DARK_SQUIRREL);
-        morphModel.put(DARK_SQUIRREL,GIANT_SQUIRREL);
+        morphModel.put(DARK_SQUIRREL,BONE_SQUIRREL);
+        morphModel.put(BONE_SQUIRREL,GIANT_SQUIRREL);
 
         //Mining
         morphModel.put(ROCK_GOLEM,ROCK_GOLEM_21187);
@@ -601,6 +620,9 @@ public enum PetData {
         morphModel.put(DARK_CORE,CORPOREAL_CRITTER);
         morphModel.put(CORPOREAL_CRITTER,DARK_CORE);
 
+        //gryphon
+        morphModel.put(GULL,GULLIVER);
+        morphModel.put(GULLIVER,GULL);
 
     }
 
