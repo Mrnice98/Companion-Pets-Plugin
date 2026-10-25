@@ -82,18 +82,16 @@ public class CompanionPetPlugin extends Plugin
 
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		overlayManager.remove(overlayPet);
 		eventBus.unregister(fakeDialogManager);
 		clientToolbar.removeNavigation(navButton);
-		renderCallbackManager.register(drawListener);
+		renderCallbackManager.unregister(drawListener);
 		panel.removeAll();
 
 		clientThread.invokeLater(this::despawnAnyActivePOMs);
 		chatCommandManager.unregisterCommand("!mochi");
-
-
 	}
 
 	@Provides
