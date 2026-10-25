@@ -1,4 +1,4 @@
-package com.example.dialog;
+package com.example.Dialog;
 
 import com.google.common.base.Strings;
 import java.util.function.IntConsumer;

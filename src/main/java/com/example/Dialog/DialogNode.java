@@ -1,4 +1,4 @@
-package com.example.dialog;
+package com.example.Dialog;
 
 import java.util.List;
 import java.util.function.Supplier;

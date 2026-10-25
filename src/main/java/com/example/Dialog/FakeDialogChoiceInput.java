@@ -1,4 +1,4 @@
-package com.example.dialog;
+package com.example.Dialog;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

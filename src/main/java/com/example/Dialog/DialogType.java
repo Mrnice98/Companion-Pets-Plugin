@@ -1,4 +1,4 @@
-package com.example.dialog;
+package com.example.Dialog;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

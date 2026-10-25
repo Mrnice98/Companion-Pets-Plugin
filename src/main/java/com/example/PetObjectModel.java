@@ -1,13 +1,20 @@
-
-
-//Code adapted and modified from Justin Ead (Jebrim)'s JebScapeActor class
 package com.example;
 
-import net.runelite.api.*;
+import net.runelite.api.Animation;
+import net.runelite.api.AnimationController;
+import net.runelite.api.Client;
+import net.runelite.api.Model;
+import net.runelite.api.Perspective;
+import net.runelite.api.RuneLiteObject;
+import net.runelite.api.WorldView;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ClientTick;
+
+import javax.annotation.Nonnull;
+
+import static com.example.CompanionPetPlugin.ANIMATION_OFFSETS;
 
 public class PetObjectModel
 {
@@ -37,27 +44,27 @@ public class PetObjectModel
 	}
 
 	public Animation[] animationPoses = new Animation[3];
-	
-	
+
 	public void init(Client client,PetData petData)
 	{
 		this.client = client;
-
 		this.rlObject = new RuneLiteObject(client)
 		{
 			@Override
-			public Model getModel() {
+			public Model getModel()
+			{
 				Model m = super.getModel();
-				if (PetObjectModel.this.petData.getScale() != -1)
+				int scale = PetObjectModel.this.petData.getScale();
+				if (scale > 0)
 				{
-					m = m.scale(PetObjectModel.this.petData.getScale(), PetObjectModel.this.petData.getScale(), PetObjectModel.this.petData.getScale());
+					m = m.scale(scale, scale, scale);
 				}
 				return m;
 			}
 		};
 
 
-		this.rlObject.setWorldView(-1);
+		this.rlObject.setWorldView(WorldView.TOPLEVEL);
 		this.petData = petData;
 		for (int i = 0; i < MAX_TARGET_QUEUE_SIZE; i++)
 		{
@@ -68,11 +75,6 @@ public class PetObjectModel
 	public int getPetAttkAnim()
 	{
 		return petData.getAttkAnim();
-	}
-
-	public int getPetAttkAnimFrames()
-	{
-		return petData.getAttkAnimFrames();
 	}
 
 	public int getSize()
@@ -108,7 +110,7 @@ public class PetObjectModel
 		}
 
 	}
-	
+
 	public void spawn(WorldPoint position, int jauOrientation, int size)
 	{
 		LocalPoint localPosition = LocalPoint.fromWorld(client, position);
@@ -121,6 +123,8 @@ public class PetObjectModel
 		{
 			rlObject.setLocation(new LocalPoint(0, 0), client.getPlane());
 		}
+
+		rlObject.setZ(getZOff());
 		rlObject.setOrientation(jauOrientation);
 		rlObject.setShouldLoop(true);
 		rlObject.setActive(true);
@@ -128,7 +132,7 @@ public class PetObjectModel
 		this.cTargetIndex = 0;
 		this.targetQueueSize = 0;
 	}
-	
+
 	public void despawn()
 	{
 		rlObject.setActive(false);
@@ -144,7 +148,7 @@ public class PetObjectModel
 		this.animationPoses[POSE_ANIM.WALK.ordinal()] = client.loadAnimation(walk);//7124
 		this.animationPoses[POSE_ANIM.RUN.ordinal()] = client.loadAnimation(run);
 	}
-	
+
 	public WorldPoint getWorldLocation()
 	{
 		return targetQueueSize > 0 ? targetQueue[cTargetIndex].wpDest : WorldPoint.fromLocal(client, rlObject.getLocation());
@@ -153,13 +157,14 @@ public class PetObjectModel
 	public void setAnimation(Animation animation)
 	{
 		rlObject.setAnimation(animation);
+		rlObject.setZ(getZOff());
 	}
 
 	public LocalPoint getLocalLocation()
 	{
 		return rlObject.getLocation();
 	}
-	
+
 	public boolean isActive()
 	{
 		return rlObject.isActive();
@@ -170,11 +175,16 @@ public class PetObjectModel
 		return rlObject.getOrientation();
 	}
 
-	
+	public int getZOff()
+	{
+		int zOffset = ANIMATION_OFFSETS.get(rlObject.getAnimation().getId());
+		int footprintSize = petData.getFootprintSize();
+		return Perspective.getFootprintTileHeight(client, rlObject.getLocation(), rlObject.getLevel(),footprintSize) - zOffset;
+	}
+
 	// moveTo() adds target movement states to the queue for later per-frame updating for rendering in onClientTick()
 	public void moveTo(WorldPoint worldPosition, int jauOrientation, int size)
 	{
-
 		if (!rlObject.isActive())
 		{
 			spawn(worldPosition, jauOrientation, size);
@@ -227,7 +237,6 @@ public class PetObjectModel
 		if (rlObject.isActive())
 		{
 			boolean rotationDone = rotateObject(orentation);
-
 			if (targetQueueSize > 0)
 			{
 				int targetPlane = targetQueue[cTargetIndex].wpDest.getPlane();
@@ -263,7 +272,7 @@ public class PetObjectModel
 				int dx = targetPosition.getX()  - currentPosition.getX();
 				int dy = targetPosition.getY() - currentPosition.getY();
 
-				
+
 				// are we not where we need to be?
 				if (dx != 0 || dy != 0)
 				{
@@ -286,11 +295,9 @@ public class PetObjectModel
 					}
 
 
-					LocalPoint newLocation = new LocalPoint(currentPosition.getX() + dx , currentPosition.getY() + dy);
-
-					int zOff = Perspective.getTileHeight(client,rlObject.getLocation(),rlObject.getLevel());
+					LocalPoint newLocation = new LocalPoint(currentPosition.getX() + dx , currentPosition.getY() + dy, WorldView.TOPLEVEL);
 					rlObject.setLocation(newLocation, targetPlane);
-					rlObject.setZ(zOff);
+					rlObject.setZ(getZOff());
 
 					dx = targetPosition.getX() - rlObject.getLocation().getX();
 					dy = targetPosition.getY() - rlObject.getLocation().getY();
@@ -310,7 +317,7 @@ public class PetObjectModel
 
 			return true;
 		}
-		
+
 		return false;
 	}
 

@@ -10,8 +10,10 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.PluginErrorPanel;
 import net.runelite.client.util.AsyncBufferedImage;
+import net.runelite.client.util.Filepath;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
+import net.runelite.http.api.RuneLiteAPI;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -155,7 +157,7 @@ public class CompanionPetPanel extends PluginPanel {
 
         if (plugin.petData == null)
         {
-            plugin.petData = PetData.pets.get(config.pet().getIdentifier());
+            plugin.petData = PetData.pets.get(config.pet().toString());
         }
 
         BufferedImage bufferedIcon = config.filter() ? VISIBLE_ICON : INVISIBLE_ICON;
@@ -264,7 +266,7 @@ public class CompanionPetPanel extends PluginPanel {
 
         if (plugin.petData == null)
         {
-            plugin.petData = PetData.pets.get(config.pet().getIdentifier());
+            plugin.petData = PetData.pets.get(config.pet().toString());
         }
 
         JLabel title = new JLabel("Current Pet");
@@ -296,7 +298,7 @@ public class CompanionPetPanel extends PluginPanel {
     {
         if (plugin.petData == null)
         {
-            plugin.petData = PetData.pets.get(config.pet().getIdentifier());
+            plugin.petData = PetData.pets.get(config.pet().toString());
         }
 
         AsyncBufferedImage icon = itemManager.getImage(plugin.petData.getIconID());
@@ -652,11 +654,6 @@ public class CompanionPetPanel extends PluginPanel {
 
         for (PetData petData : petList)
         {
-//            if (!petData.isWorking() && !config.allowBrokenPets())
-//            {
-//                continue;
-//            }
-
             Icon icon = new ImageIcon(itemManager.getImage(petData.getIconID()));
 
             JButton button = new JButton(icon);

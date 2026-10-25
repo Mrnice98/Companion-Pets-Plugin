@@ -3,11 +3,11 @@ plugins {
 }
 
 repositories {
+	mavenCentral()
 	mavenLocal()
 	maven {
 		url = 'https://repo.runelite.net'
 	}
-	mavenCentral()
 }
 
 def runeLiteVersion = 'latest.release'
@@ -25,11 +25,12 @@ dependencies {
 
 
 group = 'com.example'
-version = '1.2'
-sourceCompatibility = '1.8'
+version = '1.5'
+sourceCompatibility = "11"
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
 
+targetCompatibility = JavaVersion.VERSION_11

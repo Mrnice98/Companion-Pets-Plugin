@@ -89,8 +89,7 @@ public class PathingLogic {
             {
                 return new WorldArea(start.getX() + dxSig, start.getY(), start.getWidth(), start.getHeight(), start.getPlane());
             }
-            else if (dy != 0 && Math.max(Math.abs(dx), Math.abs(dy)) > 1 &&
-                    start.canTravelInDirection(client.getTopLevelWorldView(), 0, dy, extraCondition))
+            else if (dy != 0 && Math.max(Math.abs(dx), Math.abs(dy)) > 1 && start.canTravelInDirection(client.getTopLevelWorldView(), 0, dy, extraCondition))
             {
                 // Note that NPCs don't attempts to travel along the y-axis
                 // if the target is <= 1 tile distance away

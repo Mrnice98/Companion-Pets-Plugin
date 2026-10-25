@@ -119,6 +119,18 @@ public interface CompanionPetConfig extends Config
 
 
 	@ConfigItem(
+			keyName = "impThralls",
+			name = "Imp Thralls",
+			description = "Plugin overrides imp thralls if enabled.",
+			hidden = false
+	)
+	default boolean impThralls()
+	{
+		return true;
+	}
+
+
+	@ConfigItem(
 			keyName = "disableWhistle",
 			name = "Disable Fake Follower",
 			description = "Disables the ability to spawn a fake follower by clicking the call pet whistle.",
@@ -141,26 +153,5 @@ public interface CompanionPetConfig extends Config
 		return false;
 	}
 
-	@ConfigItem(
-			keyName = "allowBrokenPets",
-			name = "Enable Broken Pets",
-			description = "These pets do not scale correctly and are awaiting a RL update to fix.",
-			hidden = true
-	)
-	default boolean allowBrokenPets()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-			keyName = "sizeModifier",
-			name = "Size Modifier",
-			description = "Multiples the pets current size by this number",
-			hidden = false
-	)
-	default int sizeModifier()
-	{
-		return 1;
-	}
 
 }

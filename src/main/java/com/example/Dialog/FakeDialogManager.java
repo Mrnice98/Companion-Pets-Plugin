@@ -1,12 +1,18 @@
-package com.example.dialog;
+package com.example.Dialog;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import com.example.PetData;
 import lombok.NonNull;
 import net.runelite.api.Client;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class FakeDialogManager
@@ -54,10 +60,36 @@ public class FakeDialogManager
 
 	public void setSelectedIx(int selectedIx)
 	{
-		// dialog choices always take the first one selected, even if multiple are hit
+		// Dialog choices always take the first one selected, even if multiple are hit
 		if (this.selectedIx == -1)
 		{
 			this.selectedIx = selectedIx;
 		}
 	}
+
+	public DialogNode provideDialog(PetData petData)
+	{
+		List<String> data = Arrays.stream(petData.getDriestPerson().split(":")).collect(Collectors.toList());
+
+		String kcIdentifer = data.get(0);
+		String name = data.get(1);
+		String kc = data.get(2);
+		String date = data.get(3);
+
+		return DialogNode.builder()
+				.player()
+				.animationId(567)
+				.body("Tell me something to make me feel better")
+				.onContinue
+				(() ->
+					DialogNode.builder()
+					 	.npc(petData.getNpcId())
+						.title(petData.getName())
+						.body("It took " + name +" "+ kc + " " + kcIdentifer +" but<br>" + "They finally got me on " + date)
+						.animationId(petData.getChatHeadAnimID())
+						.build()
+				)
+				.build();
+	}
+
 }

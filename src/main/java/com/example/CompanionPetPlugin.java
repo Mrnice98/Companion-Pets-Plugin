@@ -1,42 +1,46 @@
 package com.example;
 
-import com.example.dialog.DialogNode;
-import com.example.dialog.FakeDialogManager;
+import com.example.NpcInfo.NpcDefinition;
+import com.example.Dialog.FakeDialogManager;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
+import net.runelite.api.gameval.NpcID;
+import net.runelite.api.gameval.AnimationID;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.*;
 import net.runelite.api.geometry.SimplePolygon;
-import net.runelite.api.model.Jarvis;
 import net.runelite.client.callback.ClientThread;
-import net.runelite.client.callback.Hooks;
+import net.runelite.client.callback.RenderCallback;
+import net.runelite.client.callback.RenderCallbackManager;
 import net.runelite.client.chat.ChatCommandManager;
 import net.runelite.client.chat.ChatMessageManager;
-import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
-import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 
 import javax.inject.Inject;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static com.example.PetData.pets;
 import static com.example.PetObjectModel.radToJau;
-import static net.runelite.api.Perspective.COSINE;
-import static net.runelite.api.Perspective.SINE;
+import static com.example.Utilities.ModelUtility.*;
+import static com.example.Utilities.RenderUtility.*;
+import static com.example.Utilities.InputStreamUtility.*;
 
 @Slf4j
 @PluginDescriptor(
@@ -46,47 +50,21 @@ import static net.runelite.api.Perspective.SINE;
 )
 public class CompanionPetPlugin extends Plugin
 {
-	@Inject
-	private Client client;
+	@Inject private Client client;
+	@Inject private EventBus eventBus;
+	@Inject private CompanionPetConfig config;
+	@Inject private OverlayManager overlayManager;
+	@Inject private CompanionPetOverlay overlayPet;
+	@Inject private FakeDialogManager fakeDialogManager;
+	@Inject private ChatboxPanelManager chatboxPanelManager;
+	@Inject private ClientThread clientThread;
+	@Inject private ConfigManager configManager;
+	@Inject private ClientToolbar clientToolbar;
+	@Inject private ChatMessageManager chatMessageManager;
+	@Inject private ChatCommandManager chatCommandManager;
+	@Inject private RenderCallbackManager renderCallbackManager;
 
-	@Inject
-	private EventBus eventBus;
-
-	@Inject
-	private CompanionPetConfig config;
-
-	@Inject
-	private OverlayManager overlayManager;
-
-	@Inject
-	private CompanionPetOverlay overlayPet;
-
-	@Inject
-	private FakeDialogManager fakeDialogManager;
-
-	@Inject
-	private ChatboxPanelManager chatboxPanelManager;
-
-	@Inject
-	private ClientThread clientThread;
-
-	@Inject
-	private ConfigManager configManager;
-
-	@Inject
-	private ClientToolbar clientToolbar;
-
-	@Inject
-	private ItemManager itemManager;
-
-	@Inject
-	private ChatMessageManager chatMessageManager;
-
-	@Inject
-	private Hooks hooks;
-
-	@Inject
-	private ChatCommandManager chatCommandManager;
+	private final RenderCallback drawListener = createDrawListener(this::shouldDraw);
 
 	@Override
 	protected void startUp() throws Exception
@@ -94,10 +72,13 @@ public class CompanionPetPlugin extends Plugin
 		buildSidePanel();
 		overlayManager.add(overlayPet);
 		eventBus.register(fakeDialogManager);
-		hooks.registerRenderableDrawListener(drawListener);
+		renderCallbackManager.register(drawListener);
 		chatCommandManager.registerCommand("!mochi",this::setPetMochi);
 
+		populatePetData();
+		updateThrallIds();
 	}
+
 
 
 	@Override
@@ -106,7 +87,7 @@ public class CompanionPetPlugin extends Plugin
 		overlayManager.remove(overlayPet);
 		eventBus.unregister(fakeDialogManager);
 		clientToolbar.removeNavigation(navButton);
-		hooks.unregisterRenderableDrawListener(drawListener);
+		renderCallbackManager.register(drawListener);
 		panel.removeAll();
 
 		clientThread.invokeLater(this::despawnAnyActivePOMs);
@@ -114,8 +95,6 @@ public class CompanionPetPlugin extends Plugin
 
 
 	}
-
-
 
 	@Provides
 	CompanionPetConfig provideConfig(ConfigManager configManager)
@@ -153,12 +132,30 @@ public class CompanionPetPlugin extends Plugin
 
 	private final static String CONFIG_GROUP = "CompanionPetPlugin";
 
-	private final static List<Integer> MELEE_THRALLS = Arrays.asList(10886,10885,10884);
-	private final static List<Integer> RANGE_THRALLS = Arrays.asList(10883,10882,10881);
-	private final static List<Integer> MAGE_THRALLS = Arrays.asList(10880,10879,10878);
-	private final static List<Integer> ALL_THRALL_IDS = Arrays.asList(10886,10885,10884,10883,10882,10881,10880,10879,10878);
+	private static final Set<Integer> ALL_THRALL_IDS = new HashSet<>();
 
-	private final Hooks.RenderableDrawListener drawListener = this::shouldDraw;
+	private static final Set<Integer> IMP_MELEE_THRALLS = Set.of(NpcID.THRALL_IMP_MELEE_LESSER, NpcID.THRALL_IMP_MELEE_SUPERIOR, NpcID.THRALL_IMP_MELEE_GREATER);
+	private static final Set<Integer> IMP_RANGE_THRALLS = Set.of(NpcID.THRALL_IMP_RANGED_LESSER, NpcID.THRALL_IMP_RANGED_SUPERIOR, NpcID.THRALL_IMP_RANGED_GREATER);
+	private static final Set<Integer> IMP_MAGE_THRALLS = Set.of(NpcID.THRALL_IMP_MAGIC_LESSER, NpcID.THRALL_IMP_MAGIC_SUPERIOR, NpcID.THRALL_IMP_MAGIC_GREATER);
+
+	private static final Set<Integer> MELEE_THRALLS = new HashSet<>(Set.of(NpcID.ARCEUUS_THRALL_ZOMBIE_LESSER, NpcID.ARCEUUS_THRALL_ZOMBIE_SUPERIOR, NpcID.ARCEUUS_THRALL_ZOMBIE_GREATER));
+	private static final Set<Integer> RANGE_THRALLS = new HashSet<>(Set.of(NpcID.ARCEUUS_THRALL_SKELETON_LESSER, NpcID.ARCEUUS_THRALL_SKELETON_SUPERIOR, NpcID.ARCEUUS_THRALL_SKELETON_GREATER));
+	private static final Set<Integer> MAGE_THRALLS = new HashSet<>(Set.of(NpcID.ARCEUUS_THRALL_GHOST_LESSER, NpcID.ARCEUUS_THRALL_GHOST_SUPERIOR, NpcID.ARCEUUS_THRALL_GHOST_GREATER));
+
+	private static final Set<Integer> THRALL_SPAWN_ANIMS =
+	 Set.of(AnimationID.ZOMBIE_UPDATE_THRAWL_SPAWN_RAISED,
+			AnimationID.SKELETON_UPDATE_THRALL_SPAWN_RAISED,
+			AnimationID.GHOST_UPDATE_THRALL_SPAWN_RAISED,
+			AnimationID.LEAGUES_6_THRALL_IMP_MAGIC_SPAWN,
+			AnimationID.LEAGUES_6_THRALL_IMP_RANGED_SPAWN,
+			AnimationID.LEAGUES_6_THRALL_IMP_MELEE_SPAWN);
+
+
+	public static HashMap<Integer,Integer> ANIMATION_OFFSETS = new HashMap<>();
+
+	private static final String[] PET_DEFAULT_OPTIONS = {"Talk-to", "Pick-up", "Examine"};
+	private static final String[] PET_MORPH_OPTIONS = {"Talk-to", "Pick-up", "Metamorphosis", "Examine"};
+
 
 
 	@Subscribe
@@ -166,7 +163,7 @@ public class CompanionPetPlugin extends Plugin
 	{
 		if (event.getKey().equals("pet"))
 		{
-			petData = PetData.pets.get(config.pet().getIdentifier());
+			petData = pets.get(config.pet().toString());
 			clientThread.invokeLater(()-> updatePet());
 		}
 
@@ -186,24 +183,37 @@ public class CompanionPetPlugin extends Plugin
 
 				clientThread.invokeLater(()->
 				{
-					thrallObjectModel.spawn(npc.getWorldLocation(),npc.getOrientation(),thrallObjectModel.getSize());
 					thrallObjectModel.setAnimation(thrallObjectModel.animationPoses[0]);
-
+					thrallObjectModel.spawn(npc.getWorldLocation(),npc.getOrientation(),thrallObjectModel.getSize());
 				});
 			}
 		}
 
-		if (event.getKey().equals("allowBrokenPets") && config.allowBrokenPets() && !config.debug())
+		if (event.getKey().equals("impThralls"))
 		{
-			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage("--------------------------------------------------------------------------------").build());
-			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage("<col=ff0000>[Companion Pets] Warning<col=000000>:<col=ffff00>").build());
-			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage("<col=000000>You have enabled the broken pets. These pets will not scale correctly and are awaiting a fix from RL.<col=ffff00>").build());
-			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage("--------------------------------------------------------------------------------").build());
+			updateThrallIds();
 		}
 
+	}
 
 
+	@Subscribe
+	public void onWorldViewUnloaded(WorldViewUnloaded worldViewUnloaded)
+	{
+		WorldView wv = worldViewUnloaded.getWorldView();
 
+		if (petActive() && isOwnWorldView(wv))
+		{
+			lastPlayerWP = client.getLocalPlayer().getWorldLocation();
+			lastActorWP = pet.getWorldLocation();
+			lastActorOrientation = pet.getOrientation();
+			pet.despawn();
+		}
+	}
+
+	public boolean isOwnWorldView(WorldView worldView)
+	{
+		return client.getLocalPlayer().getWorldView().equals(worldView);
 	}
 
 	@Subscribe
@@ -215,14 +225,13 @@ public class CompanionPetPlugin extends Plugin
 			activeThralls.clear();
 		}
 
-		if (gameStateChanged.getGameState() == GameState.LOADING)
+		if (gameStateChanged.getGameState() == GameState.LOADING || gameStateChanged.getGameState() == GameState.HOPPING)
 		{
-			if (pet.getRlObject() != null && pet.isActive())
+			if (petActive() && client.getTopLevelWorldView() != null)
 			{
 				lastPlayerWP = client.getLocalPlayer().getWorldLocation();
 				lastActorWP = pet.getWorldLocation();
 				lastActorOrientation = pet.getOrientation();
-
 				pet.despawn();
 			}
 
@@ -240,25 +249,34 @@ public class CompanionPetPlugin extends Plugin
 		{
 			if (pet.getRlObject() != null && petFollowing)
 			{
-				WorldPoint wp = client.getLocalPlayer().getWorldLocation();
-				WorldPoint aWP = pet.getWorldLocation();
-
-				double intx = aWP.toWorldArea().getX() - wp.toWorldArea().getX();
-				double inty = aWP.toWorldArea().getY() - wp.toWorldArea().getY();
-
-
-				if (lastPlayerWP.distanceTo(client.getLocalPlayer().getWorldLocation()) < 5)
+				clientThread.invokeLater(()->
 				{
-					pet.spawn(lastActorWP,lastActorOrientation,petData.getSize());
-					pet.setAnimation(pet.animationPoses[0]);
-				}
-				else
-				{
-					pet.spawn(client.getLocalPlayer().getWorldLocation(),radToJau(Math.atan2(intx,inty)),petData.getSize());
-					pet.setAnimation(pet.animationPoses[0]);
-				}
+					if (client.getLocalPlayer() == null)
+						return false;
 
-				nextTravellingPoint = pet.getWorldLocation().toWorldArea();
+					WorldPoint wp = client.getLocalPlayer().getWorldLocation();
+					WorldPoint aWP = pet.getWorldLocation();
+
+					double intx = aWP.toWorldArea().getX() - wp.toWorldArea().getX();
+					double inty = aWP.toWorldArea().getY() - wp.toWorldArea().getY();
+
+
+					if (lastPlayerWP.distanceTo(client.getLocalPlayer().getWorldLocation()) < 5)
+					{
+						pet.setAnimation(pet.animationPoses[0]);
+						pet.spawn(lastActorWP,lastActorOrientation,petData.getSize());
+					}
+					else
+					{
+						pet.setAnimation(pet.animationPoses[0]);
+						pet.spawn(client.getLocalPlayer().getWorldLocation(),radToJau(Math.atan2(intx,inty)),petData.getSize());
+					}
+
+					nextTravellingPoint = pet.getWorldLocation().toWorldArea();
+
+					return true;
+				});
+
 			}
 
 
@@ -267,8 +285,8 @@ public class CompanionPetPlugin extends Plugin
 				PetObjectModel thrallObjectModel = entry.getValue();
 				NPC npc = entry.getKey();
 
-				thrallObjectModel.spawn(npc.getWorldLocation(),npc.getOrientation(),petData.getSize());
 				thrallObjectModel.setAnimation(thrallObjectModel.animationPoses[0]);
+				thrallObjectModel.spawn(npc.getWorldLocation(),npc.getOrientation(),petData.getSize());
 
 			}
 
@@ -282,9 +300,7 @@ public class CompanionPetPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage event)
 	{
-
 		String message = event.getMessage();
-
 		if (message.equals("You do not have a follower.") && event.getType() == ChatMessageType.GAMEMESSAGE && !config.disableWhistle())
 		{
 			callPet(event);
@@ -296,12 +312,10 @@ public class CompanionPetPlugin extends Plugin
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged varbitChanged)
 	{
-
 		if (varbitChanged.getVarbitId() == 6719 && varbitChanged.getValue() == 0)
 		{
 			petEnterHouse = petFollowing;
 		}
-
 	}
 
 
@@ -316,7 +330,7 @@ public class CompanionPetPlugin extends Plugin
 
 		spawnPetInHouse();
 
-		if (pet.getRlObject() != null && pet.isActive())
+		if (petActive())
 		{
 			Player player = client.getLocalPlayer();
 			double intx = pet.getLocalLocation().getX() - player.getLocalLocation().getX();
@@ -392,8 +406,8 @@ public class CompanionPetPlugin extends Plugin
 
 			if (thrallObjectModel.getRlObject() == null || !thrallObjectModel.isActive())
 			{
-				PetData petData = PetData.pets.get(getThrallTypeData(npcID).getIdentifier());
-				Model petModel = provideModel(petData);
+				PetData petData = pets.get(getThrallTypeData(npcID).toString());
+				Model petModel = provideModel(client,petData);
 
 				thrallObjectModel.init(client,petData);
 				thrallObjectModel.setPoseAnimations(petData.getIdleAnim(),petData.getWalkAnim(),petData.getRunAnim());
@@ -403,8 +417,8 @@ public class CompanionPetPlugin extends Plugin
 
 			if (config.companionThralls())
 			{
-				thrallObjectModel.spawn(event.getNpc().getWorldLocation(),event.getNpc().getOrientation(),1);
 				thrallObjectModel.setAnimation(thrallObjectModel.animationPoses[0]); //0 == walk
+				thrallObjectModel.spawn(event.getNpc().getWorldLocation(),event.getNpc().getOrientation(),1);
 			}
 
 
@@ -426,15 +440,14 @@ public class CompanionPetPlugin extends Plugin
 	}
 
 
-	//magic thrall and other thrall anims dont register becuse their first attk can come out as a neg 1 anim, use projectile instead
+	//magic thrall and other thrall anims dont register bc their first attk can come out as a neg 1 anim, use projectile instead
 	@Subscribe
 	public void onAnimationChanged(AnimationChanged event)
 	{   //3847 for thermy 7126 for sire
 		if (event.getActor() instanceof NPC)
 		{
 			NPC npc = (NPC) event.getActor();
-
-			if (activeThralls.containsKey(npc) && npc.getAnimation() != -1 && activeThralls.get(npc).isActive())
+			if (activeThralls.containsKey(npc) && !THRALL_SPAWN_ANIMS.contains(npc.getAnimation()) && npc.getAnimation() != -1 && activeThralls.get(npc).isActive())
 			{
 				PetObjectModel thrallPet = activeThralls.get(npc);
 
@@ -451,32 +464,33 @@ public class CompanionPetPlugin extends Plugin
 
 	}
 
+	public WorldView getWVfromWA(WorldArea wa)
+	{
+		return client.findWorldViewFromWorldPoint(wa.toWorldPoint());
+	}
+
 
 
 	@Subscribe
 	public void onClientTick(ClientTick event)
 	{
-
 		//skelly attk = 21 frames == +55 for start
 		//melee attk = 21 frames
 		//magic attk = 18 frames
 		//basic magic attack anim 711
 
-
-		if (pet.getRlObject() != null && pet.animationPoses != null)
+		if (petActive() && client.getLocalPlayer() != null)
 		{
+			LocalPoint petLp = pet.getLocalLocation();
+			LocalPoint playerLp = client.getLocalPlayer().getLocalLocation();
 
-			LocalPoint lp = pet.getLocalLocation();
-			int zOff = Perspective.getTileHeight(client,lp,client.getPlane());
-
-			petPoly = calculateAABB(client, pet.getRlObject().getModel(), pet.getOrientation(), pet.getLocalLocation().getX(), pet.getLocalLocation().getY(),client.getPlane(), zOff);
-
-			double intx = pet.getRlObject().getLocation().getX() - client.getLocalPlayer().getLocalLocation().getX();
-			double inty = pet.getRlObject().getLocation().getY() - client.getLocalPlayer().getLocalLocation().getY();
+			petPoly = calculateAABB(client, pet.getRlObject().getModel(), pet.getOrientation(), petLp.getX(), petLp.getY(), client.getTopLevelWorldView().getPlane(), pet.getZOff());
+			double intx = petLp.getX() - playerLp.getX();
+			double inty = petLp.getY() - playerLp.getY();
 
 			pet.onClientTick(event,radToJau(Math.atan2(intx,inty)));
 
-			//for 2x2 set drawFontTilesFirst only when they are moveing / test vs walls in house and rimmy
+			//for 2x2 set drawFontTilesFirst only when they are moving / test vs walls in house and rimmy
 			if (petData.getSize() == 2 && pet.getRlObject().getAnimation() == pet.animationPoses[1])
 			{
 				pet.getRlObject().setDrawFrontTilesFirst(true);
@@ -493,43 +507,42 @@ public class CompanionPetPlugin extends Plugin
 
 		for (Map.Entry<NPC,PetObjectModel> entry : activeThralls.entrySet())
 		{
-			PetObjectModel thrallOM = entry.getValue();
+			PetObjectModel thrallPOM = entry.getValue();
+			RuneLiteObject thrallRLO = thrallPOM.getRlObject();
+			Animation anim = thrallRLO.getAnimation();
 			NPC thrall = entry.getKey();
 
-			//System.out.println(thrallOM.getRlObject().getAnimationFrame());
-
-
-			//18 is the end frame of the animation for abyssal orpahn //10 for thermy //9 zulrah
-			//1741 zulrah anim
-			if (thrallOM.getRlObject().getAnimation() != null
-				&& thrallOM.getPetAttkAnim() != -1
-				&& thrallOM.getRlObject().getAnimation().getId() == thrallOM.getPetAttkAnim()
-				&& thrallOM.getRlObject().getAnimationFrame() == thrallOM.getPetAttkAnimFrames())
+			if (anim != null && thrallPOM.getPetAttkAnim() != -1 && anim.getId() == thrallPOM.getPetAttkAnim() && thrallRLO.getAnimationFrame() == anim.getNumFrames() - 1)
 			{
-				if (thrallOM.targetQueueSize == 0 && thrallOM.getRlObject().getAnimation() != thrallOM.animationPoses[0])
+				if (thrallPOM.targetQueueSize == 0 && anim != thrallPOM.animationPoses[0])
 				{
-					thrallOM.setAnimation(thrallOM.animationPoses[0]);
+					thrallPOM.setAnimation(thrallPOM.animationPoses[0]);
 				}
 				else
 				{
-					thrallOM.setAnimation(thrallOM.animationPoses[1]);
+					thrallPOM.setAnimation(thrallPOM.animationPoses[1]);
 				}
 			}
 
-			thrallOM.onClientTick(event,thrall.getOrientation());
-
+			thrallPOM.onClientTick(event,thrall.getOrientation());
 		}
-
 
 	}
 
 	@Subscribe
 	public void onProjectileMoved(ProjectileMoved event)
 	{
-		if (event.getProjectile().getStartCycle() == client.getGameCycle())
+		processProjectile(event.getProjectile());
+	}
+
+
+
+	public void processProjectile(Projectile projectile)
+	{
+		if (projectile.getStartCycle() == client.getGameCycle())
 		{
 			//x1 and y1 represet the projectiles cords when it is first spawned
-			LocalPoint point = new LocalPoint(event.getProjectile().getX1(),event.getProjectile().getY1());
+			LocalPoint point = new LocalPoint(projectile.getX1(),projectile.getY1());
 
 			for (Map.Entry<NPC,PetObjectModel> entry : activeThralls.entrySet())
 			{
@@ -540,63 +553,35 @@ public class CompanionPetPlugin extends Plugin
 				{
 					thrall.setAnimation(client.loadAnimation(thrall.getPetAttkAnim()));
 				}
-
-
 			}
-
-
 		}
 
-
-
-
-
-
-
 	}
+
 
 	@Subscribe
 	public void onMenuOpened(MenuOpened event)
 	{
+		Point mousePoint = client.getMouseCanvasPosition();
 
-		if (pet.getRlObject() == null || !pet.isActive())
+		if (!petActive() || !petPoly.contains(mousePoint.getX(), mousePoint.getY()))
 		{
 			return;
 		}
 
-		int firstMenuIndex = 0;
+		Menu menu = client.getMenu();
+		String[] options = petData.isMetamorph() ? PET_MORPH_OPTIONS : PET_DEFAULT_OPTIONS;
+		String target = ColorUtil.prependColorTag(petData.getName(), Color.YELLOW);
 
-		for (int i = 0; i < client.getMenuEntries().length; i++)
+		for (String option : options)
 		{
-			if (client.getMenuEntries()[i].getOption().equals("Cancel"))
-			{
-				firstMenuIndex = i + 1;
-				break;
-			}
-		}
-
-
-		List<String> options = Arrays.asList("Talk-to","Pick-up","Examine");
-
-		if (petData.isMetamorph())
-		{
-			options = Arrays.asList("Talk-to","Pick-up","Metamorphosis","Examine");
-		}
-
-
-		for (String string : options)
-		{
-			if (petPoly.contains(client.getMouseCanvasPosition().getX(),client.getMouseCanvasPosition().getY()))
-			{
-				client.createMenuEntry(firstMenuIndex)
-						.setOption(string)
-						.setTarget("<col=ffff00>" + petData.getName() + "</col>")
-						.setType(MenuAction.RUNELITE)
-						.setParam0(0)
-						.setParam1(0)
-						.setDeprioritized(true);
-
-			}
+			menu.createMenuEntry(1)//just above Cancel
+					.setOption(option)
+					.setTarget(target)
+					.setType(MenuAction.RUNELITE)
+					.setParam0(0)
+					.setParam1(0)
+					.setDeprioritized(true);
 		}
 
 	}
@@ -636,12 +621,6 @@ public class CompanionPetPlugin extends Plugin
 		{
 			if (pet.isActive())
 			{
-				if (!PetData.morphModel.get(petData).isWorking() && !config.allowBrokenPets())
-				{
-					chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage("<col=000000>Sadly the transmog for this pet is awaiting a RL fix to work correctly<col=ffff00>").build());
-					return;
-				}
-
 				petData = PetData.morphModel.get(petData);
 				updatePet();
 			}
@@ -653,7 +632,7 @@ public class CompanionPetPlugin extends Plugin
 			if (pet.isActive() && pet.getWorldArea().isInMeleeDistance(client.getLocalPlayer().getWorldArea()))
 			{
 				dialogOpen = true;
-				fakeDialogManager.open(provideDialog());
+				fakeDialogManager.open(fakeDialogManager.provideDialog(petData));
 			}
 
 		}
@@ -673,38 +652,32 @@ public class CompanionPetPlugin extends Plugin
 	//Hides the runelite obj to give other renderables like players prio
 	private boolean shouldDraw(Renderable renderable, boolean drawingUI)
 	{
-		if (renderable instanceof RuneLiteObject)
+		if (petActive() || !activeThralls.isEmpty())
 		{
-			RuneLiteObject rlObject = (RuneLiteObject) renderable;
-			if (pet.getRlObject() != null && pet.getRlObject().equals(rlObject))
-			{
-				List<LocalPoint> localPoints = new ArrayList<>();
-				List<Player> nonLocalPlayers = client.getPlayers().stream().filter(player -> !Objects.equals(player.getName(), client.getLocalPlayer().getName())).collect(Collectors.toList());
-				nonLocalPlayers.forEach(player -> localPoints.add(player.getLocalLocation()));
-				client.getNpcs().forEach(npc -> localPoints.add(npc.getLocalLocation()));
+			List<LocalPoint> localPoints = new ArrayList<>();
+			List<NPC> npcs = client.getNpcs();
+			List<Player> players = client.getPlayers();
 
+			players.forEach(player -> localPoints.add(player.getLocalLocation()));
+			npcs.stream().filter(npc -> !ALL_THRALL_IDS.contains(npc.getId())).forEach(npc -> localPoints.add(npc.getLocalLocation()));
+
+			if (petActive())
+			{
 				boolean overlappingModel = localPoints.stream().anyMatch(localPoint -> localPoint.equals(pet.getLocalLocation()));
-				return !overlappingModel;
+				conditionalHide(pet,overlappingModel);
 			}
 
-
-			for (PetObjectModel thrallOM : activeThralls.values())
+			if (!activeThralls.isEmpty())
 			{
-				if (thrallOM.getRlObject().equals(rlObject))
+				if (petActive())
+					localPoints.add(pet.getLocalLocation());
+
+				for (PetObjectModel thrallOM : activeThralls.values())
 				{
-					List<LocalPoint> localPoints = new ArrayList<>();
-					client.getPlayers().forEach(player -> localPoints.add(player.getLocalLocation()));
-
-					client.getNpcs().stream().filter(npc -> !ALL_THRALL_IDS.contains(npc.getId())).forEach(npc -> localPoints.add(npc.getLocalLocation()));
-
 					boolean overlappingModel = localPoints.stream().anyMatch(localPoint -> localPoint.equals(thrallOM.getLocalLocation()));
-
-					return !overlappingModel;
+					conditionalHide(thrallOM,overlappingModel);
 				}
-
-
 			}
-
 		}
 
 
@@ -715,6 +688,13 @@ public class CompanionPetPlugin extends Plugin
 		}
 
 		return true;
+	}
+
+
+
+	private boolean petActive()
+	{
+		return pet.getRlObject() != null && pet.isActive();
 	}
 
 	private PetData getThrallTypeData(int npcID)
@@ -739,7 +719,7 @@ public class CompanionPetPlugin extends Plugin
 
 	private void despawnAnyActivePOMs()
 	{
-		if (pet.getRlObject() != null && pet.isActive())
+		if (petActive())
 		{
 			pet.despawn();
 		}
@@ -794,8 +774,8 @@ public class CompanionPetPlugin extends Plugin
 			double intx = aWP.toWorldArea().getX() - wp.toWorldArea().getX();
 			double inty = aWP.toWorldArea().getY() - wp.toWorldArea().getY();
 
-			pet.spawn(client.getLocalPlayer().getWorldLocation(),radToJau(Math.atan2(intx,inty)),petData.getSize());
 			pet.setAnimation(pet.animationPoses[0]);
+			pet.spawn(client.getLocalPlayer().getWorldLocation(),radToJau(Math.atan2(intx,inty)),petData.getSize());
 			nextTravellingPoint = pet.getWorldLocation().toWorldArea();
 		}
 
@@ -804,13 +784,16 @@ public class CompanionPetPlugin extends Plugin
 	public WorldPoint getPathOutWorldPoint(WorldArea worldArea)
 	{
 
+		System.out.println(client.findWorldViewFromWorldPoint(client.getLocalPlayer().getWorldLocation()).getPlane());
+		System.out.println(client.getTopLevelWorldView().getPlane());
+
 		ArrayList<WorldPoint> points = new ArrayList<>();
 
 		for (int i = -1; i < 2; i++)
 		{
 			if (i != 0)
 			{
-				if (worldArea.canTravelInDirection(client.getTopLevelWorldView(),i,0))
+				if (worldArea.canTravelInDirection(client.findWorldViewFromWorldPoint(worldArea.toWorldPoint()),i,0))
 				{
 
 					WorldPoint worldPoint = new WorldPoint(worldArea.getX() + i,worldArea.getY(),client.getPlane());
@@ -819,7 +802,7 @@ public class CompanionPetPlugin extends Plugin
 					if (petData.getSize() == 2)
 					{
 						WorldArea area = new WorldArea(worldPoint,2,2);
-						secondCheck = area.canTravelInDirection(client.getTopLevelWorldView(),i,0) ;
+						secondCheck = area.canTravelInDirection(client.findWorldViewFromWorldPoint(area.toWorldPoint()),i,0) ;
 					}
 
 
@@ -831,7 +814,7 @@ public class CompanionPetPlugin extends Plugin
 				}
 
 
-				if (worldArea.canTravelInDirection(client.getTopLevelWorldView(),0,i))
+				if (worldArea.canTravelInDirection(client.findWorldViewFromWorldPoint(worldArea.toWorldPoint()),0,i))
 				{
 					WorldPoint worldPoint = new WorldPoint(worldArea.getX(),worldArea.getY() + i,client.getPlane());
 
@@ -839,7 +822,7 @@ public class CompanionPetPlugin extends Plugin
 					if (petData.getSize() == 2)
 					{
 						WorldArea area = new WorldArea(worldPoint,2,2);
-						secondCheck	= area.canTravelInDirection(client.getTopLevelWorldView(),0,i);
+						secondCheck	= area.canTravelInDirection(client.findWorldViewFromWorldPoint(area.toWorldPoint()),0,i);
 					}
 
 					if (!worldPoint.equals(client.getLocalPlayer().getWorldLocation()) && secondCheck)
@@ -865,75 +848,10 @@ public class CompanionPetPlugin extends Plugin
 	}
 
 
-	private DialogNode provideDialog()
-	{
-
-		List<String> data = Arrays.stream(petData.getDryestPerson().split(":")).collect(Collectors.toList());
-
-		String kcIdentifer = data.get(0);
-		String name = data.get(1);
-		String kc = data.get(2);
-		String date = data.get(3);
-
-		return DialogNode.builder()
-				.player()
-				.animationId(567)
-				.body("Tell me something to make me feel better")
-				.onContinue
-						(() ->
-								DialogNode.builder()
-										.npc(petData.getNpcId())
-										.title(petData.getName())
-										.body("It took " + name +" "+ kc + " " + kcIdentifer +" but<br>" +
-												"They finally got me on " + date)
-										.animationId(petData.getChatHeadAnimID())
-										.build()
-
-
-						)
-				.build();
-	}
 
 
 
-	//contrast * 5 + 850
-	public Model provideModel(PetData petData)
-	{
-		ModelData[] modelDataArray = new ModelData[petData.getModelIDs().size()];
-		for (int i = 0; i < petData.getModelIDs().size(); i++)
-		{
-			modelDataArray[i] = client.loadModelData(petData.getModelIDs().get(i));
-		}
 
-		ModelData modelData = createModel(client,modelDataArray);
-		modelData.cloneVertices();
-
-//		if (petData.getScale() != -1)
-//		{
-//			modelData.cloneVertices();
-//			modelData.scale(petData.getScale(),petData.getScale(),petData.getScale());
-//		}
-
-
-		//cut list in half fist half color to find, second half color to replace
-		if (petData.getRecolorIDs() !=  null)
-		{
-			modelData.cloneColors();
-			int mid = (petData.getRecolorIDs().size() / 2);
-
-			for (int i = 0; i < mid; i++)
-			{
-				modelData.recolor(petData.getRecolorIDs().get(i),petData.getRecolorIDs().get(mid + i));
-			}
-
-		}
-
-
-		int ambient = (petData.getAmbient() != -1 ? petData.getAmbient() : 0);
-		int contrast = (petData.getContrast() != -1 ? petData.getContrast() : 0);
-
-		return modelData.light(ambient + 64, contrast + 850,-30,-50,-30);
-	}
 
 
 	private void buildSidePanel()
@@ -943,7 +861,7 @@ public class CompanionPetPlugin extends Plugin
 
 		if (petData == null)
 		{
-			petData = PetData.pets.get(config.pet().getIdentifier());
+			petData = pets.get(config.pet().toString());
 		}
 
 		BufferedImage icon = ImageUtil.loadImageResource(getClass(), "/nav_icon.png");
@@ -966,7 +884,7 @@ public class CompanionPetPlugin extends Plugin
 			pet.init(client,petData);
 		}
 
-		petModel = provideModel(petData);
+		petModel = provideModel(client,petData);
 		pet.setPoseAnimations(petData.getIdleAnim(),petData.getWalkAnim(),petData.getRunAnim());
 		pet.setPetData(petData);
 
@@ -1018,8 +936,8 @@ public class CompanionPetPlugin extends Plugin
 
 		if ((pet.getRlObject() == null || !pet.isActive()))
 		{
-			petData = PetData.pets.get(config.pet().getIdentifier());
-			petModel = provideModel(petData);
+			petData = pets.get(config.pet().toString());
+			petModel = provideModel(client,petData);
 
 			pet.init(client,petData);
 			pet.setPoseAnimations(petData.getIdleAnim(),petData.getWalkAnim(),petData.getRunAnim());
@@ -1053,138 +971,66 @@ public class CompanionPetPlugin extends Plugin
 
 		petFollowing = true;
 
+		pet.setAnimation(pet.animationPoses[0]);
 		pet.spawn(getPathOutWorldPoint(new WorldArea(getAndUpdatePlayersDelayedLoc(),petData.getSize(),petData.getSize())),radToJau(Math.atan2(intx,inty)),petData.getSize());
-		pet.setAnimation(pet.animationPoses[0]); //0 == walk
 		nextTravellingPoint = pet.getWorldLocation().toWorldArea();
 	}
 
-	private static ModelData createModel(Client client, ModelData... data)
-	{
-		return client.mergeModels(data);
-	}
 
-	private static ModelData createModel(Client client, int... data)
+
+
+	private void populatePetData() throws IOException
 	{
-		ModelData[] modelData = new ModelData[data.length];
-		for (int i = 0; i < data.length; i++)
+		ANIMATION_OFFSETS = loadAllOffsets(getClass().getResourceAsStream("/Data/vertical_offsets.json"));
+		Map<Integer, NpcDefinition> npcData = loadById(getClass().getResourceAsStream("/Data/npc_data.json"));
+
+		pets.values().forEach(pd ->
 		{
-			modelData[i] = client.loadModelData(data[i]);
-		}
-		return client.mergeModels(modelData);
+			NpcDefinition def = npcData.get(pd.getNpcId());
+
+			pd.setScale(def.getHeightScale());
+			pd.setSize(def.getSize());
+			pd.setModelIDs(def.getModels());
+			pd.setColorToReplace(def.getColorToReplace());
+			pd.setColorToReplaceWith(def.getColorToReplaceWith());
+			pd.setFootprintSize(def.getFootprintSize());
+			pd.setAmbient(def.getAmbient());
+			pd.setContrast(def.getContrast());
+			pd.setIdleAnim(def.getStandingAnimation());
+			pd.setWalkAnim(def.getWalkingAnimation());
+			pd.setRunAnim(def.getRunAnimation());
+		});
 	}
 
-
-	private static SimplePolygon calculateAABB(Client client, Model m, int jauOrient, int x, int y, int z, int zOff)
-	{
-		AABB aabb = m.getAABB(jauOrient);
-
-		int x1 = aabb.getCenterX();
-		int y1 = aabb.getCenterZ();
-		int z1 = aabb.getCenterY() + zOff;
-
-		int ex = aabb.getExtremeX();
-		int ey = aabb.getExtremeZ();
-		int ez = aabb.getExtremeY();
-
-		int x2 = x1 + ex;
-		int y2 = y1 + ey;
-		int z2 = z1 + ez;
-
-		x1 -= ex;
-		y1 -= ey;
-		z1 -= ez;
-
-		int[] xa = new int[]{
-				x1, x2, x1, x2,
-				x1, x2, x1, x2
-		};
-		int[] ya = new int[]{
-				y1, y1, y2, y2,
-				y1, y1, y2, y2
-		};
-		int[] za = new int[]{
-				z1, z1, z1, z1,
-				z2, z2, z2, z2
-		};
-
-		int[] x2d = new int[8];
-		int[] y2d = new int[8];
-
-		modelToCanvasCpu(client, 8, x, y, z, 0, xa, ya, za, x2d, y2d);
-
-		return Jarvis.convexHull(x2d, y2d);
-	}
-
-	private static void modelToCanvasCpu(Client client, int end, int x3dCenter, int y3dCenter, int z3dCenter, int rotate, int[] x3d, int[] y3d, int[] z3d, int[] x2d, int[] y2d)
-	{
-		final int
-				cameraPitch = client.getCameraPitch(),
-				cameraYaw = client.getCameraYaw(),
-
-				pitchSin = SINE[cameraPitch],
-				pitchCos = COSINE[cameraPitch],
-				yawSin = SINE[cameraYaw],
-				yawCos = COSINE[cameraYaw],
-				rotateSin = SINE[rotate],
-				rotateCos = COSINE[rotate],
-
-				cx = x3dCenter - client.getCameraX(),
-				cy = y3dCenter - client.getCameraY(),
-				cz = z3dCenter - client.getCameraZ(),
-
-				viewportXMiddle = client.getViewportWidth() / 2,
-				viewportYMiddle = client.getViewportHeight() / 2,
-				viewportXOffset = client.getViewportXOffset(),
-				viewportYOffset = client.getViewportYOffset(),
-
-				zoom3d = client.getScale();
-
-		for (int i = 0; i < end; i++)
-		{
-			int x = x3d[i];
-			int y = y3d[i];
-			int z = z3d[i];
-
-			if (rotate != 0)
-			{
-				int x0 = x;
-				x = x0 * rotateCos + y * rotateSin >> 16;
-				y = y * rotateCos - x0 * rotateSin >> 16;
-			}
-
-			x += cx;
-			y += cy;
-			z += cz;
-
-			final int
-					x1 = x * yawCos + y * yawSin >> 16,
-					y1 = y * yawCos - x * yawSin >> 16,
-					y2 = z * pitchCos - y1 * pitchSin >> 16,
-					z1 = y1 * pitchCos + z * pitchSin >> 16;
-
-			int viewX, viewY;
-
-			if (z1 < 50)
-			{
-				viewX = Integer.MIN_VALUE;
-				viewY = Integer.MIN_VALUE;
-			}
-			else
-			{
-				viewX = (viewportXMiddle + x1 * zoom3d / z1) + viewportXOffset;
-				viewY = (viewportYMiddle + y2 * zoom3d / z1) + viewportYOffset;
-			}
-
-			x2d[i] = viewX;
-			y2d[i] = viewY;
-		}
-	}
 
 	private void setPetMochi(ChatMessage chatMessage, String s)
 	{
 		configManager.setConfiguration("CompanionPetPlugin","pet",PetData.MOCHI);
 		callPet(chatMessage);
 	}
+
+	private void updateThrallIds()
+	{
+		if (config.impThralls())
+		{
+			MAGE_THRALLS.addAll(IMP_MAGE_THRALLS);
+			RANGE_THRALLS.addAll(IMP_RANGE_THRALLS);
+			MELEE_THRALLS.addAll(IMP_MELEE_THRALLS);
+		}
+		else
+		{
+			MAGE_THRALLS.removeAll(IMP_MAGE_THRALLS);
+			RANGE_THRALLS.removeAll(IMP_RANGE_THRALLS);
+			MELEE_THRALLS.removeAll(IMP_MELEE_THRALLS);
+		}
+
+		ALL_THRALL_IDS.clear();
+		ALL_THRALL_IDS.addAll(MAGE_THRALLS);
+		ALL_THRALL_IDS.addAll(RANGE_THRALLS);
+		ALL_THRALL_IDS.addAll(MELEE_THRALLS);
+	}
+
+
 
 
 }
