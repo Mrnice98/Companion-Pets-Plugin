@@ -784,9 +784,6 @@ public class CompanionPetPlugin extends Plugin
 	public WorldPoint getPathOutWorldPoint(WorldArea worldArea)
 	{
 
-		System.out.println(client.findWorldViewFromWorldPoint(client.getLocalPlayer().getWorldLocation()).getPlane());
-		System.out.println(client.getTopLevelWorldView().getPlane());
-
 		ArrayList<WorldPoint> points = new ArrayList<>();
 
 		for (int i = -1; i < 2; i++)
